@@ -16,16 +16,3 @@ export async function removeFromCart(cart_item_id: number){
     await sql`DELETE FROM heirarch_cart WHERE id=${cart_item_id}`
     revalidatePath("/")
 }
-
-export async function getItemsInCart(): Promise<CartItem[]>{
-    const cart_products = await sql<CartItem[]>`
-        SELECT 
-            heirarch_products.*,
-            heirarch_cart.id as cart_item_id
-        FROM heirarch_products
-        JOIN heirarch_cart
-        ON heirarch_products.id = heirarch_cart.product_id
-        ORDER BY heirarch_cart.id;
-    `;
-    return cart_products
-}
