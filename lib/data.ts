@@ -1,26 +1,28 @@
-import postgres from 'postgres';
 import { CartItem, Product } from "./definitions"
-
-const sql = postgres(process.env.POSTGRES_URL!, {ssl: 'require'});
+import { prisma } from './prisma';
 
 export async function getProducts (): Promise<Product[]>{
-    const products_list = await sql<Product[]>`SELECT * FROM heirarch_products;`;
+    const products_list = await prisma.product.findMany();
     return products_list
 }
 
 export async function getSingleProduct(id: number): Promise<Product>{
-    const product = await sql<Product[]>`SELECT * FROM heirarch_products WHERE id=${id};`;
-    return product[0]
+    const product = await prisma.product.findMany({
+        where: {
+            id: Number(id),
+        }
+    });
+    return product[0];
 }
 
 export async function getBestSellers (): Promise<Product[]>{
-    const best_sellers = await sql<Product[]>`
+    const best_sellers = await prisma.$queryRaw<Product[]>`
         SELECT 
-            heirarch_products.* 
-        FROM heirarch_products
-        JOIN heirarch_sale_data
-        ON heirarch_products.id = heirarch_sale_data.product_id
-        ORDER BY heirarch_sale_data.num_sold DESC;
+            Product.* 
+        FROM Product
+        JOIN SaleData
+        ON Product.id = SaleData.product_id
+        ORDER BY SaleData.num_sold DESC;
     `;
     return best_sellers
 }
@@ -51,14 +53,15 @@ export async function searchProducts(query: string): Promise<Product[]>{
 }
 
 export async function getItemsInCart(): Promise<CartItem[]>{
-    const cart_products = await sql<CartItem[]>`
+    const cart_products = await prisma.$queryRaw<CartItem[]>`
         SELECT 
-            heirarch_products.*,
-            heirarch_cart.id as cart_item_id
-        FROM heirarch_products
-        JOIN heirarch_cart
-        ON heirarch_products.id = heirarch_cart.product_id
-        ORDER BY heirarch_cart.id;
+            Product.*,
+            CartItem.cart_item_id
+        FROM Product
+        JOIN CartItem
+        ON Product.id = CartItem.product_id
+        ORDER BY CartItem.cart_item_id;
     `;
+    // console.log(cart_products)
     return cart_products
 }

@@ -13,11 +13,10 @@ import { SidebarTrigger } from "./ui/sidebar";
 import SearchProducts from "./Search";
 import { Badge } from "./ui/badge";
 import { Suspense } from "react";
-import { getItemsInCart } from "@/lib/data";
+import { getCartItemsCount } from "@/lib/actions";
 
 export default async function Navbar() {
-    const items_in_cart = await getItemsInCart();
-    const num_items_in_cart = items_in_cart?.length
+    const num_items_in_cart = await getCartItemsCount();
     return (
         <nav className="flex items-center justify-between p-2 border-b">
             <SidebarTrigger />
