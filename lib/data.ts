@@ -29,7 +29,7 @@ export async function getBestSellers (): Promise<Product[]>{
 
 export async function searchProducts(query: string): Promise<Product[]>{
     const products_list = await getProducts();
-    const term_list = query.toLowerCase().split(/\s+/)
+    const term_list = query.toLowerCase().trim().split(/\s+/);
 
     function containsTerms(text: string, terms: string[]): number{
         let matches = 0;
@@ -48,7 +48,7 @@ export async function searchProducts(query: string): Promise<Product[]>{
         }
     ))
 
-    search_results.sort((a, b) => b.matches - a.matches)
+    search_results.sort((a, b) => b.matches - a.matches);
     return search_results.filter(x => x.matches > 0).map(x => x.product);
 }
 
@@ -62,6 +62,5 @@ export async function getItemsInCart(): Promise<CartItem[]>{
         ON Product.id = CartItem.product_id
         ORDER BY CartItem.cart_item_id;
     `;
-    // console.log(cart_products)
-    return cart_products
+    return cart_products;
 }
