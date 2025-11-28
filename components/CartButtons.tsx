@@ -9,8 +9,8 @@ export function AddToCart({ product_id }: { product_id: number }) {
     return (
         <Button
             size='lg'
-            onClick={() => {
-                addToCart(product_id)
+            onClick={async () => {
+                await addToCart(product_id)
 
                 toast.success("Item has been added to cart!")
             }}
@@ -24,8 +24,8 @@ export function RemoveFromCart({ item_idx }: { item_idx: number }) {
     return (
         <Button
             size='lg'
-            onClick={() => {
-                removeFromCart(item_idx)
+            onClick={async () => {
+                await removeFromCart(item_idx)
 
                 toast.success("Item has been removed from cart!")
             }}
