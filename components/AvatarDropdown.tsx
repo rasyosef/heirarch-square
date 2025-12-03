@@ -5,6 +5,7 @@ import { LogInIcon, LogOutIcon, SettingsIcon, ShoppingCartIcon, UserIcon, UserPl
 import { Button } from "./ui/button";
 import { signOutUser } from "@/lib/actions";
 import { auth } from "@/auth";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 export async function UserAvatarDropdown() {
     const session = await auth();
@@ -18,11 +19,18 @@ export async function UserAvatarDropdown() {
             <DropdownMenuTrigger asChild>
                 <Avatar>
                     {/* <AvatarImage src="https://assetsio.gnwcdn.com/the_witcher_3_wild_hunt_e3_2014_18.jpg?width=100&height=100&fit=crop&quality=100&format=png&enable=upscale&auto=webp" /> */}
-                    <AvatarFallback
-                        className="bg-primary text-primary-foreground"
-                    >
-                        {avatar_fallback}
-                    </AvatarFallback>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <AvatarFallback
+                                className="bg-primary text-primary-foreground"
+                            >
+                                {avatar_fallback}
+                            </AvatarFallback>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>{session?.user?.email}</p>
+                        </TooltipContent>
+                    </Tooltip>
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent sideOffset={8}>

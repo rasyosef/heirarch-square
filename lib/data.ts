@@ -18,11 +18,11 @@ export async function getSingleProduct(id: number): Promise<Product>{
 export async function getBestSellers (): Promise<Product[]>{
     const best_sellers = await prisma.$queryRaw<Product[]>`
         SELECT 
-            Product.* 
-        FROM Product
-        JOIN SaleData
-        ON Product.id = SaleData.product_id
-        ORDER BY SaleData.num_sold DESC;
+            "Product".* 
+        FROM "Product"
+        JOIN "SaleData"
+        ON "Product".id = "SaleData".product_id
+        ORDER BY "SaleData".num_sold DESC;
     `;
     return best_sellers
 }
@@ -55,12 +55,12 @@ export async function searchProducts(query: string): Promise<Product[]>{
 export async function getItemsInCart(): Promise<CartItem[]>{
     const cart_products = await prisma.$queryRaw<CartItem[]>`
         SELECT 
-            Product.*,
-            CartItem.cart_item_id
-        FROM Product
-        JOIN CartItem
-        ON Product.id = CartItem.product_id
-        ORDER BY CartItem.cart_item_id;
+            "Product".*,
+            "CartItem".cart_item_id
+        FROM "Product"
+        JOIN "CartItem"
+        ON "Product".id = "CartItem".product_id
+        ORDER BY "CartItem".cart_item_id;
     `;
     return cart_products;
 }
