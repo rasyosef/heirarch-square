@@ -64,3 +64,8 @@ export async function getItemsInCart(): Promise<CartItem[]>{
     `;
     return cart_products;
 }
+
+export async function getCartItemsCount(){
+    const num_items = await prisma.cartItem.count();
+    return num_items
+}

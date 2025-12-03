@@ -27,3 +27,9 @@ model CartItem {
   cart_item_id Int @id @default(autoincrement())
   product_id Int
 }
+
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique 
+  passwordHash String
+}

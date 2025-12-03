@@ -2,10 +2,10 @@
 
 import { addToCart, removeFromCart } from "@/lib/actions";
 import { Button } from "./ui/button";
-import { Plus, Trash } from "lucide-react";
+import { PlusIcon, TrashIcon } from "lucide-react";
 import { toast } from "sonner"
 
-export function AddToCart({ product_id }: { product_id: number }) {
+export function AddToCartButton({ product_id }: { product_id: number }) {
     return (
         <Button
             size='lg'
@@ -15,12 +15,12 @@ export function AddToCart({ product_id }: { product_id: number }) {
                 toast.success("Item has been added to cart!")
             }}
         >
-            <Plus /> Add to cart
+            <PlusIcon /> Add to cart
         </Button>
     )
 }
 
-export function RemoveFromCart({ item_idx }: { item_idx: number }) {
+export function RemoveFromCartButton({ item_idx }: { item_idx: number }) {
     return (
         <Button
             size='lg'
@@ -29,7 +29,7 @@ export function RemoveFromCart({ item_idx }: { item_idx: number }) {
                 toast.success("Item has been removed from cart!")
             }}
         >
-            <Trash /> Remove from Cart
+            <TrashIcon /> Remove from Cart
         </Button>
     )
 }

@@ -1,4 +1,4 @@
-import postgres from 'postgres';
+import { prisma } from "@/lib/prisma";
 import { Product, SaleData } from "@/lib/definitions"
 
 const products_list = [
@@ -46,56 +46,33 @@ const sale_data = [
     }
 ]
 
-const sql = postgres(process.env.POSTGRES_URL!, {ssl: 'require'});
-
 // SEED
 export async function seedDB(){
-    await sql`DROP TABLE IF EXISTS heirarch_products;`
-    await sql`DROP TABLE IF EXISTS heirarch_sale_data;`
-    await sql`DROP TABLE IF EXISTS heirarch_cart;`
 
-    await sql`CREATE TABLE IF NOT EXISTS heirarch_products(
-        id int primary key,
-        name varchar(128),
-        description varchar(256),
-        image_url varchar(256),
-        price float
-    );`
+    const num_records = await prisma.product.count();
 
+    if (num_records > 0){
+        return "DB already seeded!"
+    }
+    
     for (let i=0; i<products_list.length; i++)
-        await sql`INSERT INTO heirarch_products VALUES(
-            ${products_list[i].id},
-            ${products_list[i].name},
-            ${products_list[i].description},
-            ${products_list[i].image_url},
-            ${products_list[i].price}
-        );`
-
-    const prod_res = await sql<Product[]>`SELECT * FROM heirarch_products`;
-    console.log("Products Inserted:", prod_res.length, prod_res[0]);
-
-    //
-
-    await sql`CREATE TABLE IF NOT EXISTS heirarch_sale_data(
-        product_id int primary key,
-        num_sold int
-    );`
+        await prisma.product.create({
+            data: {
+                id: products_list[i].id,
+                name: products_list[i].name,
+                description: products_list[i].description,
+                image_url: products_list[i].image_url,
+                price: products_list[i].price
+            }
+        })
 
     for (let i=0; i<sale_data.length; i++)
-        await sql`INSERT INTO heirarch_sale_data VALUES(
-            ${sale_data[i].product_id},
-            ${sale_data[i].num_sold}
-        );`
-
-    const res = await sql<SaleData[]>`SELECT * FROM heirarch_sale_data`;
-    console.log("Sale Data Inserted:", res.length, res[0]);
-
-    //
-
-    await sql`CREATE TABLE IF NOT EXISTS heirarch_cart(
-        id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        product_id int
-    );`
+        await prisma.saleData.create({
+            data: {
+            product_id: sale_data[i].product_id,
+            num_sold: sale_data[i].num_sold
+            }
+    })
 
     return "Seed Successful!";
 }

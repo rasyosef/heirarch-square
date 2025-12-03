@@ -2,7 +2,7 @@ import { Product } from "@/lib/definitions"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import { AddToCart } from "@/components/CartButtons";
+import { AddToCartButton } from "@/components/CartButtons";
 
 export default function CardList({ products }: { products: Product[] }) {
     return (
@@ -27,7 +27,7 @@ export default function CardList({ products }: { products: Product[] }) {
                                 <span className='text-sm font-medium uppercase'>Price</span>
                                 <span className='text-xl font-semibold'>${product.price}</span>
                             </div>
-                            <AddToCart product_id={product.id} />
+                            <AddToCartButton product_id={product.id} />
                         </CardFooter>
                     </Card>
                 ))
