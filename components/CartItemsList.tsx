@@ -2,7 +2,7 @@ import { CartItem } from "@/lib/definitions"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import { RemoveFromCart } from "@/components/CartButtons";
+import { RemoveFromCartButton } from "@/components/CartButtons";
 
 export default function CartItemList({ cart_items }: { cart_items: CartItem[] }) {
     return (
@@ -27,7 +27,7 @@ export default function CartItemList({ cart_items }: { cart_items: CartItem[] })
                                 <span className='text-sm font-medium uppercase'>Price</span>
                                 <span className='text-xl font-semibold'>${cart_item.price}</span>
                             </div>
-                            <RemoveFromCart item_idx={cart_item.cart_item_id} />
+                            <RemoveFromCartButton item_idx={cart_item.cart_item_id} />
                         </CardFooter>
                     </Card>
                 ))

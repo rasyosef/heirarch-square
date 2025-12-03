@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated" // Custom output path
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  image_url String
+  price Int
+}
+
+model SaleData {
+  product_id Int @id
+  num_sold Int
+}
+
+model CartItem {
+  cart_item_id Int @id @default(autoincrement())
+  product_id Int
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique 
+  passwordHash String
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { Search } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
 import { useSearchParams } from 'next/navigation';
 import { Button } from "./ui/button";
@@ -38,14 +38,14 @@ export default function SearchProducts() {
                 }}
             />
             <InputGroupAddon>
-                <Search />
+                <SearchIcon />
             </InputGroupAddon>
             <InputGroupAddon align="inline-end" className="p-1.5">
                 <Button
                     className="rounded-none rounded-r-lg"
                     onClick={() => handleSearch(term)}
                 >
-                    <Search />
+                    <SearchIcon />
                 </Button>
             </InputGroupAddon>
         </InputGroup>
