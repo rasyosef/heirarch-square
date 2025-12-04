@@ -10,13 +10,17 @@ import {
 import LoginForm from "@/components/LoginForm"
 import Link from "next/link"
 import { Suspense } from "react"
-// import Image from "next/image"
+import Image from "next/image"
 
 export default function LoginPage() {
     return (
-        <div className="flex justify-center py-16 border-b">
+        <div className="flex justify-center py-16">
             <Card className="w-full max-w-sm">
-                {/* <Image src='/witcher.webp' alt='logo' width={40} height={40} /> */}
+                <div className="flex flex-col items-center">
+                    <Link href='/'>
+                        <Image src='/witcher.webp' alt='logo' width={80} height={80} />
+                    </Link>
+                </div>
                 <CardHeader>
                     <CardTitle>Login to your account</CardTitle>
                     <CardDescription>
