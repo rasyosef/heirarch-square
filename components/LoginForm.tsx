@@ -43,7 +43,7 @@ export default function LoginForm() {
                 </div>
                 <Input type="hidden" name="redirectTo" value={callbackUrl} />
                 <Button type="submit" className="w-full" aria-disabled={isPending}>
-                    Login
+                    Log In
                 </Button>
                 {errorMessage && (
                     <p className="text-sm text-red-500">{errorMessage}</p>

@@ -13,7 +13,7 @@ import Image from "next/image"
 
 export default function SignupPage() {
     return (
-        <div className="flex justify-center py-16">
+        <div className="flex justify-center px-4 py-16">
             <Card className="w-full max-w-sm">
                 <div className="flex flex-col items-center">
                     <Link href='/'>
@@ -27,7 +27,7 @@ export default function SignupPage() {
                     </CardDescription>
                     <CardAction>
                         <Button variant="link" asChild>
-                            <Link href="/login">Login</Link>
+                            <Link href="/login">Log In</Link>
                         </Button>
                     </CardAction>
                 </CardHeader>

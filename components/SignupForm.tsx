@@ -33,7 +33,7 @@ export default function SignupForm() {
                 </div>
                 {/* <Input type="hidden" name="redirectTo" value='/' /> */}
                 <Button type="submit" className="w-full" aria-disabled={isPending}>
-                    SignUp
+                    Sign Up
                 </Button>
                 {errorMessage && (
                     <p className="text-sm text-red-500">{errorMessage}</p>

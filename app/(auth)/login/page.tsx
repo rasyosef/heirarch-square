@@ -14,7 +14,7 @@ import Image from "next/image"
 
 export default function LoginPage() {
     return (
-        <div className="flex justify-center py-16">
+        <div className="flex justify-center px-4 py-16">
             <Card className="w-full max-w-sm">
                 <div className="flex flex-col items-center">
                     <Link href='/'>
@@ -22,9 +22,9 @@ export default function LoginPage() {
                     </Link>
                 </div>
                 <CardHeader>
-                    <CardTitle>Login to your account</CardTitle>
+                    <CardTitle>Log in to your account</CardTitle>
                     <CardDescription>
-                        Enter your email below to login to your account
+                        Enter your email below to log in to your account
                     </CardDescription>
                     <CardAction>
                         <Button variant="link" asChild>

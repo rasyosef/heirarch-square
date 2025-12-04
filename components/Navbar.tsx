@@ -14,9 +14,9 @@ export default async function Navbar() {
 
     // console.log('session:', session)
     return (
-        <nav className="flex items-center justify-between p-2 border-b">
+        <nav className="flex items-center p-2 border-b">
             <SidebarTrigger />
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-6 items-center ml-auto pr-2">
                 <Suspense>
                     <SearchProducts />
                 </Suspense>
