@@ -11,7 +11,13 @@ export default function CardList({ products }: { products: Product[] }) {
                 products.map((product) => (
                     <Card key={product.id} className="justify-between gap-4">
                         <CardContent>
-                            <Image src={product.image_url} alt="" width={1024} height={1024} />
+                            <Image
+                                src={product.image_url}
+                                alt={product.name}
+                                width={1024}
+                                height={1024}
+                                className="aspect-15/9"
+                            />
                         </CardContent>
                         <CardHeader>
                             <CardTitle>

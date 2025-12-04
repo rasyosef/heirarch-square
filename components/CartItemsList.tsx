@@ -11,7 +11,13 @@ export default function CartItemList({ cart_items }: { cart_items: CartItem[] })
                 cart_items.map((cart_item) => (
                     <Card key={cart_item.cart_item_id} className="justify-between gap-4">
                         <CardContent>
-                            <Image src={cart_item.image_url} alt="" width={1024} height={1024} />
+                            <Image
+                                src={cart_item.image_url}
+                                alt={cart_item.name}
+                                width={1024}
+                                height={1024}
+                                className="aspect-15/9"
+                            />
                         </CardContent>
                         <CardHeader>
                             <CardTitle>
