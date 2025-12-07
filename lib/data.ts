@@ -69,3 +69,26 @@ export async function getCartItemsCount(){
     const num_items = await prisma.cartItem.count();
     return num_items
 }
+
+export async function getProductCreatorEmail(product_id: number) {
+    const creator_email = await prisma.productCreatedBy.findFirst({
+        where: {
+            product_id: product_id
+        }
+    }).then(res => res?.created_by_email)
+    
+    return creator_email;
+}
+
+export async function getProductsCreatedByUser(email: string): Promise<Product[]> {
+    const products = await prisma.$queryRaw<Product[]>`
+        SELECT 
+            "Product".*
+        FROM "Product"
+        JOIN "ProductCreatedBy"
+        ON "Product".id = "ProductCreatedBy".product_id
+        WHERE "ProductCreatedBy".created_by_email = ${email}
+        ORDER BY "Product".id
+    `;
+    return products;
+}

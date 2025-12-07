@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator } from "./ui/sidebar";
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator } from "./ui/sidebar";
 import Image from "next/image";
-import { DollarSign, Home, ShoppingCart } from "lucide-react";
+import { DollarSign, Home, PlusIcon, ShoppingCart } from "lucide-react";
+import YourProductsMenu from "./YourProductsMenu";
 
 export default function AppSidebar() {
     return (
@@ -26,20 +27,32 @@ export default function AppSidebar() {
                         <SidebarMenu>
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
-                                    <Link href="/"><Home /> Home</Link>
+                                    <Link href="/"><Home /> Home </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
-                                    <Link href="/bestsellers"> <DollarSign /> Best Sellers</Link>
+                                    <Link href="/bestsellers"> <DollarSign /> Best Sellers </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
-                                    <Link href="/cart"><ShoppingCart /> Cart</Link>
+                                    <Link href="/cart"><ShoppingCart /> Cart </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
+                <SidebarGroup>
+                    <SidebarGroupLabel>Your Products</SidebarGroupLabel>
+                    <SidebarGroupAction asChild>
+                        <Link href="/dp/add">
+                            <PlusIcon />
+                            <span className="sr-only">Add Product</span>
+                        </Link>
+                    </SidebarGroupAction>
+                    <SidebarGroupContent>
+                        <YourProductsMenu />
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>

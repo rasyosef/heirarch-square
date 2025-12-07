@@ -1,6 +1,6 @@
 "use client";
 
-import { addToCart, removeFromCart } from "@/lib/actions";
+import { addToCart, deleteProduct, removeFromCart } from "@/lib/actions";
 import { Button } from "./ui/button";
 import { PlusIcon, TrashIcon } from "lucide-react";
 import { toast } from "sonner"
@@ -31,6 +31,20 @@ export function RemoveFromCartButton({ item_idx }: { item_idx: number }) {
             }}
         >
             <TrashIcon /> Remove from Cart
+        </Button>
+    )
+}
+
+export function DeleteProductButton({ product_id }: { product_id: number }) {
+    return (
+        <Button
+            size='lg'
+            variant='outline'
+            onClick={async () => {
+                await deleteProduct(product_id)
+            }}
+        >
+            <TrashIcon /> Delete
         </Button>
     )
 }

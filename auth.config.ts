@@ -8,9 +8,9 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isOnDP = nextUrl.pathname.startsWith('/dp');
+      const isOnDpAdd = nextUrl.pathname.startsWith('/dp/add');
       // console.log({LoggedIn: isLoggedIn, OnDP: isOnDP})
-      if (isOnDP) {
+      if (isOnDpAdd) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
       } 

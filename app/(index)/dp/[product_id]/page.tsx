@@ -1,11 +1,19 @@
-import { AddToCartButton } from "@/components/CartButtons";
-import { getSingleProduct } from "@/lib/data"
+import { auth } from "@/auth";
+import { AddToCartButton, DeleteProductButton } from "@/components/CartButtons";
+import { getProductCreatorEmail, getSingleProduct } from "@/lib/data"
 import Image from "next/image"
+import { notFound } from "next/navigation";
 
 export default async function Detail({ params }: { params: Promise<{ product_id: number }> }) {
     const { product_id } = await params;
     const product = await getSingleProduct(product_id)
 
+    if (!product) {
+        notFound()
+    }
+
+    const prod_creator_email = await getProductCreatorEmail(Number(product_id))
+    const session = await auth();
     return (
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 py-4">
             <Image
@@ -28,7 +36,13 @@ export default async function Detail({ params }: { params: Promise<{ product_id:
                     <span className='text-sm font-medium uppercase'>Price</span>
                     <span className='text-xl font-semibold'>${product.price}</span>
                 </div>
-                <AddToCartButton product_id={product.id} />
+                <div className="flex flex-col gap-4">
+                    <AddToCartButton product_id={product.id} />
+                    {
+                        session?.user?.email === prod_creator_email &&
+                        <DeleteProductButton product_id={product.id} />
+                    }
+                </div>
             </div>
         </div>
     )

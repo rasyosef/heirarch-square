@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { LogInIcon, LogOutIcon, SettingsIcon, ShoppingCartIcon, UserIcon, UserPlusIcon } from "lucide-react";
+import { LogInIcon, LogOutIcon, PlusIcon, SettingsIcon, ShoppingCartIcon, UserIcon, UserPlusIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { signOutUser } from "@/lib/actions";
 import { auth } from "@/auth";
@@ -39,6 +39,9 @@ export async function UserAvatarDropdown() {
                 <DropdownMenuItem asChild>
                     <Link href="/cart"><ShoppingCartIcon /> Cart </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link href="/dp/add"><PlusIcon /> Add Product </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem>
                     <UserIcon /> Profile
                 </DropdownMenuItem>
@@ -72,6 +75,9 @@ export function DefaultAvatarDropdown() {
             <DropdownMenuContent sideOffset={8}>
                 <DropdownMenuItem asChild>
                     <Link href="/cart"><ShoppingCartIcon /> Cart </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link href="/dp/add"><PlusIcon /> Add Product </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                     <Link href="/signup"><UserPlusIcon /> Sign Up</Link>
