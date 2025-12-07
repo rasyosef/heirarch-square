@@ -129,6 +129,38 @@ export async function addProduct(
   redirect(`/dp/${new_product_id}`)
 }
 
+
+export async function editProduct(
+  product_id: number,
+  prevState: string | undefined, 
+  formData: FormData,
+){
+
+  const name = formData.get("name") as string;
+  const description = formData.get("description") as string;
+  const price = Number(formData.get("price"));
+
+  try {
+    const product = await prisma.product.update({
+        data: {
+          name: name,
+          description: description,
+          price: price
+        },
+        where: {
+          id: product_id
+        }
+      })
+  }
+  catch (error){
+    console.log(error)
+    return "Error occured"
+  }
+
+  revalidatePath(`/dp/${product_id}`)
+  redirect(`/dp/${product_id}`)
+}
+
 export async function deleteProduct(product_id: number) {
   await prisma.$transaction(async (tx) => {
     // delete product

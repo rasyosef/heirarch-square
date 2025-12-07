@@ -2,8 +2,9 @@
 
 import { addToCart, deleteProduct, removeFromCart } from "@/lib/actions";
 import { Button } from "./ui/button";
-import { PlusIcon, TrashIcon } from "lucide-react";
+import { EditIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { toast } from "sonner"
+import Link from "next/link";
 
 export function AddToCartButton({ product_id }: { product_id: number }) {
     return (
@@ -31,6 +32,17 @@ export function RemoveFromCartButton({ item_idx }: { item_idx: number }) {
             }}
         >
             <TrashIcon /> Remove from Cart
+        </Button>
+    )
+}
+
+export function EditProductButton({ product_id }: { product_id: number }) {
+    return (
+        <Button
+            size='lg'
+            asChild
+        >
+            <Link href={`/dp/${product_id}/edit`}><EditIcon /> Edit </Link>
         </Button>
     )
 }

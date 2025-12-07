@@ -1,11 +1,22 @@
 import { auth } from "@/auth";
-import { AddToCartButton, DeleteProductButton } from "@/components/CartButtons";
+import { AddToCartButton, DeleteProductButton, EditProductButton } from "@/components/CartButtons";
 import { getProductCreatorEmail, getSingleProduct } from "@/lib/data"
 import Image from "next/image"
 import { notFound } from "next/navigation";
+import z from "zod";
 
 export default async function Detail({ params }: { params: Promise<{ product_id: number }> }) {
-    const { product_id } = await params;
+    const myparams = await params;
+
+    const validation = z.object({
+        product_id: z.coerce.number().min(0)
+    }).safeParse(myparams);
+
+    if (!validation.success) {
+        notFound()
+    }
+
+    const { product_id } = validation.data;
     const product = await getSingleProduct(product_id)
 
     if (!product) {
@@ -38,8 +49,9 @@ export default async function Detail({ params }: { params: Promise<{ product_id:
                 </div>
                 <div className="flex flex-col gap-4">
                     <AddToCartButton product_id={product.id} />
-                    {
-                        session?.user?.email === prod_creator_email &&
+                    {session && session?.user?.email === prod_creator_email &&
+                        <EditProductButton product_id={product.id} />}
+                    {session && session?.user?.email === prod_creator_email &&
                         <DeleteProductButton product_id={product.id} />
                     }
                 </div>

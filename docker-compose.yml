@@ -9,10 +9,11 @@ services:
         AUTH_SECRET: ${AUTH_SECRET}
         AUTH_TRUST_HOST: ${AUTH_TRUST_HOST}
         NEXTAUTH_URL: ${NEXTAUTH_URL}
+        BLOB_READ_WRITE_TOKEN: ${BLOB_READ_WRITE_TOKEN}
     ports: 
       - "3000:3000"
     command: sh -c "
-      pnpm prisma migrate deploy &&
+      pnpm prisma db push &&
       pnpm prisma generate &&
       pnpm run dev
       "
@@ -21,6 +22,10 @@ services:
 
   db:
     image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
