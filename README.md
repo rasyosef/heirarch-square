@@ -24,6 +24,9 @@ NEXTAUTH_URL=http://localhost:3000
 # postgres database connection string
 
 DATABASE_URL=
+
+# vercel blob write token, used when uploading product images
+BLOB_READ_WRITE_TOKEN=
 ```
 
 Then, run the development server:
@@ -53,6 +56,9 @@ NEXTAUTH_URL=http://localhost:3000
 # postgres database connection string
 
 DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+
+# vercel blob write token, used when uploading product images
+BLOB_READ_WRITE_TOKEN=
 ```
 
 Then, start the docker containers
