@@ -33,7 +33,7 @@ Then, run the development server:
 
 ```bash
 pnpm install
-pnpm prisma migrate deploy
+pnpm prisma db push
 pnpm prisma generate
 pnpm dev
 ```
