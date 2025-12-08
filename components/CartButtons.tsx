@@ -5,6 +5,17 @@ import { Button } from "./ui/button";
 import { EditIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { toast } from "sonner"
 import Link from "next/link";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export function AddToCartButton({ product_id }: { product_id: number }) {
     return (
@@ -49,14 +60,35 @@ export function EditProductButton({ product_id }: { product_id: number }) {
 
 export function DeleteProductButton({ product_id }: { product_id: number }) {
     return (
-        <Button
-            size='lg'
-            variant='outline'
-            onClick={async () => {
-                await deleteProduct(product_id)
-            }}
-        >
-            <TrashIcon /> Delete
-        </Button>
+        <AlertDialog>
+            <AlertDialogTrigger asChild>
+                <Button
+                    size='lg'
+                    variant='outline'
+                >
+                    <TrashIcon /> Delete
+                </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="w-sm">
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Are you sure you want to Delete this product?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        This action cannot be undone. This will permanently delete your product.
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction asChild>
+                        <Button
+                            onClick={async () => {
+                                await deleteProduct(product_id)
+                            }}
+                        >
+                            Delete
+                        </Button>
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     )
 }
