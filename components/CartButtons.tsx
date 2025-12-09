@@ -1,6 +1,6 @@
 "use client";
 
-import { addToCart, deleteProduct, removeFromCart } from "@/lib/actions";
+import { addToCartCookie, deleteProduct, removeFromCartCookie } from "@/lib/actions";
 import { Button } from "./ui/button";
 import { EditIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { toast } from "sonner"
@@ -22,7 +22,7 @@ export function AddToCartButton({ product_id }: { product_id: number }) {
         <Button
             size='lg'
             onClick={async () => {
-                await addToCart(product_id)
+                await addToCartCookie(product_id)
 
                 toast.success("Item has been added to cart!")
             }}
@@ -37,7 +37,7 @@ export function RemoveFromCartButton({ item_idx }: { item_idx: number }) {
         <Button
             size='lg'
             onClick={async () => {
-                await removeFromCart(item_idx)
+                await removeFromCartCookie(item_idx)
 
                 toast.success("Item has been removed from cart!")
             }}

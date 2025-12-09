@@ -7,25 +7,7 @@ import { AuthError } from "next-auth";
 import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { put } from "@vercel/blob";
-
-
-export async function addToCart(product_id: number){
-    await prisma.cartItem.create({
-        data: {
-            product_id: product_id,
-        },
-    })
-    revalidatePath("/")
-}
-
-export async function removeFromCart(cart_item_id: number){
-    await prisma.cartItem.delete({
-        where: {
-            cart_item_id: cart_item_id
-        }
-    })
-    revalidatePath("/")
-}
+import { cookies } from "next/headers";
 
 export async function authenticateUser(
   prevState: string | undefined,
@@ -195,3 +177,69 @@ export async function deleteProduct(product_id: number) {
   revalidatePath("/") 
   redirect('/')
 }
+
+export async function addToCartCookie(product_id: number){
+    const cookieStore = await cookies()
+
+    const cartItemsCookie = cookieStore.get('cart_items')
+    const cart_items: {[key: number]: number} = JSON.parse(cartItemsCookie?.value || JSON.stringify({}))
+
+    if (Object.keys(cart_items).length === 0){
+      cart_items[0] = product_id
+    } else {
+      const max_key = Object.keys(cart_items).reduce((a, b) => Number(a) > Number(b) ? a : b);
+      cart_items[Number(max_key) + 1] = product_id
+    }
+
+    cookieStore.set(
+      'cart_items', 
+      JSON.stringify(cart_items), 
+      {
+        httpOnly: true, // Recommended for security
+        path: "/",
+        maxAge: 60 * 60 * 24 * 15, // 15 day duration
+      }
+    )
+
+    revalidatePath("/")
+}
+
+export async function removeFromCartCookie(cart_item_idx: number){
+    const cookieStore = await cookies()
+
+    const cartItemsCookie = cookieStore.get('cart_items')
+    const cart_items: number[] = JSON.parse(cartItemsCookie?.value || JSON.stringify({}))
+
+    if (cart_item_idx in cart_items){
+      delete cart_items[cart_item_idx]
+    }
+
+    cookieStore.set(
+      'cart_items', 
+      JSON.stringify(cart_items), 
+      {
+        httpOnly: true, // Recommended for security
+        path: "/",
+        maxAge: 60 * 60 * 24 * 15, // 15 day duration
+      }
+    )
+    revalidatePath("/")
+}
+
+// export async function addToCart(product_id: number){
+//     await prisma.cartItem.create({
+//         data: {
+//             product_id: product_id,
+//         },
+//     })
+//     revalidatePath("/")
+// }
+
+// export async function removeFromCart(cart_item_id: number){
+//     await prisma.cartItem.delete({
+//         where: {
+//             cart_item_id: cart_item_id
+//         }
+//     })
+//     revalidatePath("/")
+// }
