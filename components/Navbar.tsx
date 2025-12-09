@@ -4,12 +4,13 @@ import { SidebarTrigger } from "./ui/sidebar";
 import SearchProducts from "./Search";
 import { Badge } from "./ui/badge";
 import { Suspense } from "react";
-import { getCartItemsCount } from "@/lib/data";
+import { getCartItemsCount, getCartItemsCountCookie } from "@/lib/data";
 import { auth } from "@/auth";
 import { DefaultAvatarDropdown, UserAvatarDropdown } from "./AvatarDropdown";
 
 export default async function Navbar() {
-    const num_items_in_cart = await getCartItemsCount();
+    // const num_items_in_cart = await getCartItemsCount();
+    const num_items_in_cart = await getCartItemsCountCookie();
     const session = await auth();
 
     // console.log('session:', session)

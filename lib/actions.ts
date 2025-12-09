@@ -7,6 +7,7 @@ import { AuthError } from "next-auth";
 import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { put } from "@vercel/blob";
+import { cookies } from "next/headers";
 
 
 export async function addToCart(product_id: number){
@@ -194,4 +195,28 @@ export async function deleteProduct(product_id: number) {
 
   revalidatePath("/") 
   redirect('/')
+}
+
+export async function addToCartCookie(product_id: number){
+    const cookieStore = await cookies()
+
+    const cartItemsCookie = cookieStore.get('cart_items')
+    const cart_items: number[] = JSON.parse(cartItemsCookie?.value || JSON.stringify([]))
+
+    cart_items.push(product_id)
+    cookieStore.set('cart_items', JSON.stringify(cart_items))
+
+    revalidatePath("/")
+}
+
+export async function removeFromCartCookie(cart_item_idx: number){
+    const cookieStore = await cookies()
+
+    const cartItemsCookie = cookieStore.get('cart_items')
+    const cart_items: number[] = JSON.parse(cartItemsCookie?.value || JSON.stringify([]))
+
+    cart_items.splice(cart_item_idx, 1)
+    cookieStore.set('cart_items', JSON.stringify(cart_items))
+
+    revalidatePath("/")
 }

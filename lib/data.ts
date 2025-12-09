@@ -1,5 +1,7 @@
+import { cookies } from "next/headers";
 import { CartItem, Product } from "./definitions"
 import { prisma } from './prisma';
+import { revalidatePath } from "next/cache";
 
 export async function getProducts (): Promise<Product[]>{
     const products_list = await prisma.product.findMany();
@@ -91,4 +93,49 @@ export async function getProductsCreatedByUser(email: string): Promise<Product[]
         ORDER BY "Product".id
     `;
     return products;
+}
+
+// COOKIE
+
+export async function getItemsInCartFromCookie(): Promise<CartItem[]>{
+    const cookieStore = await cookies()
+
+    const cartItemsCookie = cookieStore.get('cart_items')
+    const cart_items = JSON.parse(cartItemsCookie?.value || JSON.stringify('[]'))
+
+    const cart_products: CartItem[] = cart_items.map(async (product_id: number, idx: number) => {
+        const product = await prisma.product.findFirst({
+            where: {
+                id: product_id
+            }
+        }) 
+
+        // if (!product){
+        //     return null
+        // }
+
+        const item = <CartItem>{
+            cart_item_id: idx,
+            id: product?.id,
+            name: product?.name || 'product not found',
+            description: product?.description || 'This product does not exist',
+            image_url: product?.image_url || '/not-found.avif',
+            price: product?.price || 0
+        }
+
+        return item;
+    })
+
+    const cart_items_list = await Promise.all(cart_products);
+    return cart_items_list //.filter(item => !!item);
+}
+
+export async function getCartItemsCountCookie(){
+    const cookieStore = await cookies()
+
+    const cartItemsCookie = cookieStore.get('cart_items')
+    const cart_items: number[] = JSON.parse(cartItemsCookie?.value || JSON.stringify('[]'))
+
+    const num_items = cart_items.length;
+    return num_items
 }

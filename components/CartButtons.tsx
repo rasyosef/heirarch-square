@@ -1,6 +1,6 @@
 "use client";
 
-import { addToCart, deleteProduct, removeFromCart } from "@/lib/actions";
+import { addToCartCookie, deleteProduct, removeFromCartCookie } from "@/lib/actions";
 import { Button } from "./ui/button";
 import { EditIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { toast } from "sonner"
@@ -19,31 +19,36 @@ import {
 
 export function AddToCartButton({ product_id }: { product_id: number }) {
     return (
-        <Button
-            size='lg'
-            onClick={async () => {
-                await addToCart(product_id)
+        <form action={addToCartCookie.bind(null, product_id)}>
+            <Button
+                size='lg'
+                className="w-full"
+            // onClick={async () => {
+            //     await addToCart(product_id)
 
-                toast.success("Item has been added to cart!")
-            }}
-        >
-            <PlusIcon /> Add to cart
-        </Button>
+            //     toast.success("Item has been added to cart!")
+            // }}
+            >
+                <PlusIcon /> Add to cart
+            </Button>
+        </form>
     )
 }
 
 export function RemoveFromCartButton({ item_idx }: { item_idx: number }) {
     return (
-        <Button
-            size='lg'
-            onClick={async () => {
-                await removeFromCart(item_idx)
+        <form action={removeFromCartCookie.bind(null, item_idx)}>
+            <Button
+                size='lg'
+            // onClick={async () => {
+            //     await removeFromCart(item_idx)
 
-                toast.success("Item has been removed from cart!")
-            }}
-        >
-            <TrashIcon /> Remove from Cart
-        </Button>
+            //     toast.success("Item has been removed from cart!")
+            // }}
+            >
+                <TrashIcon /> Remove from Cart
+            </Button>
+        </form>
     )
 }
 

@@ -1,10 +1,11 @@
 export const dynamic = 'force-dynamic';
 
 import CartItemList from "@/components/CartItemsList";
-import { getItemsInCart } from "@/lib/data";
+import { getItemsInCart, getItemsInCartFromCookie } from "@/lib/data";
 
 export default async function ShoppingCart() {
-    const cart_items = await getItemsInCart()
+    // const cart_items = await getItemsInCart()
+    const cart_items = await getItemsInCartFromCookie()
 
     return (
         <div>
