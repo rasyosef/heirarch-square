@@ -1,7 +1,6 @@
 import { cookies } from "next/headers";
 import { CartItem, Product } from "./definitions"
 import { prisma } from './prisma';
-import { revalidatePath } from "next/cache";
 
 export async function getProducts (): Promise<Product[]>{
     const products_list = await prisma.product.findMany();
@@ -118,8 +117,8 @@ export async function getItemsInCartFromCookie(): Promise<CartItem[]>{
             cart_item_id: idx,
             id: product?.id,
             name: product?.name || 'product not found',
-            description: product?.description || 'This product does not exist',
-            image_url: product?.image_url || '/not-found.avif',
+            description: product?.description || 'This product is out of stock.',
+            image_url: product?.image_url || '/not-found.jpg',
             price: product?.price || 0
         }
 
