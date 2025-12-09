@@ -195,9 +195,11 @@ export async function addToCartCookie(product_id: number){
       'cart_items', 
       JSON.stringify(cart_items), 
       {
-        httpOnly: true, // Recommended for security
-        path: "/",
+        path: "/", // The cookie is available across the entire site
         maxAge: 60 * 60 * 24 * 15, // 15 day duration
+        httpOnly: true, // Recommended for security
+        secure: true, // Ensures cookie is sent only over HTTPS
+        sameSite: 'strict', // Controls cross-origin requests behavior
       }
     )
 
@@ -218,9 +220,11 @@ export async function removeFromCartCookie(cart_item_idx: number){
       'cart_items', 
       JSON.stringify(cart_items), 
       {
-        httpOnly: true, // Recommended for security
-        path: "/",
+        path: "/", // The cookie is available across the entire site
         maxAge: 60 * 60 * 24 * 15, // 15 day duration
+        httpOnly: true, // Recommended for security
+        secure: true, // Ensures cookie is sent only over HTTPS
+        sameSite: 'strict', // Controls cross-origin requests behavior
       }
     )
     revalidatePath("/")
