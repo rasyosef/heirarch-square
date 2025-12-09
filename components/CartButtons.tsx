@@ -19,36 +19,31 @@ import {
 
 export function AddToCartButton({ product_id }: { product_id: number }) {
     return (
-        <form action={addToCartCookie.bind(null, product_id)}>
-            <Button
-                size='lg'
-                className="w-full"
-            // onClick={async () => {
-            //     await addToCart(product_id)
+        <Button
+            size='lg'
+            onClick={async () => {
+                await addToCartCookie(product_id)
 
-            //     toast.success("Item has been added to cart!")
-            // }}
-            >
-                <PlusIcon /> Add to cart
-            </Button>
-        </form>
+                toast.success("Item has been added to cart!")
+            }}
+        >
+            <PlusIcon /> Add to cart
+        </Button>
     )
 }
 
 export function RemoveFromCartButton({ item_idx }: { item_idx: number }) {
     return (
-        <form action={removeFromCartCookie.bind(null, item_idx)}>
-            <Button
-                size='lg'
-            // onClick={async () => {
-            //     await removeFromCart(item_idx)
+        <Button
+            size='lg'
+            onClick={async () => {
+                await removeFromCartCookie(item_idx)
 
-            //     toast.success("Item has been removed from cart!")
-            // }}
-            >
-                <TrashIcon /> Remove from Cart
-            </Button>
-        </form>
+                toast.success("Item has been removed from cart!")
+            }}
+        >
+            <TrashIcon /> Remove from Cart
+        </Button>
     )
 }
 
