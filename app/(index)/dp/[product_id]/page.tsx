@@ -28,16 +28,16 @@ export default async function Detail({ params }: { params: Promise<{ product_id:
   const prod_creator_email = await getProductCreatorEmail(Number(product_id))
   const session = await auth();
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 py-4">
+    <div className="grid grid-cols-1 sm:grid-cols-6 gap-4 py-4">
       <Image
         src={product.image_url}
         alt={product.name}
         width={1024}
         height={1024}
-        className="col-span-1 sm:col-span-1 p-4"
+        className="col-span-1 sm:col-span-2 p-4"
       />
 
-      <div className="col-span-1 sm:col-span-2 flex flex-col gap-4 p-4">
+      <div className="col-span-1 sm:col-span-3 flex flex-col gap-4 p-4">
         <h1 className="text-xl font-medium">{product.name}</h1>
         <p className="text-md font-light">
           {product.description}
