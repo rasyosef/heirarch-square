@@ -32,12 +32,12 @@ export function AddToCartButton({ product_id }: { product_id: number }) {
     )
 }
 
-export function RemoveFromCartButton({ item_idx }: { item_idx: number }) {
+export function RemoveFromCartButton({ item_idx, product_id }: { item_idx: number, product_id: number }) {
     return (
         <Button
             size='lg'
             onClick={async () => {
-                await removeFromCartCookie(item_idx)
+                await removeFromCartCookie(item_idx, product_id)
 
                 toast.success("Item has been removed from cart!")
             }}

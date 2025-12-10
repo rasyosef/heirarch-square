@@ -96,7 +96,7 @@ export async function getItemsInCartFromCookie(): Promise<CartItem[]>{
 
         const item = <CartItem>{
             cart_item_id: item_id,
-            id: product?.id,
+            id: product_id,
             name: product?.name || 'product not found',
             description: product?.description || 'This product is out of stock.',
             image_url: product?.image_url || '/not-found.jpg',

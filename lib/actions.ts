@@ -72,18 +72,9 @@ export async function addProduct(
     const price = Number(formData.get("price"));
 
     const { url } = await put(image?.name, image, { access: 'public', addRandomSuffix: true, });
-    const max_id: number = await prisma.product.findFirst({
-      select: {
-        id: true
-      },
-      orderBy: {
-        id: 'desc'
-      }
-    }).then((res) => res?.id || 1)
     
     const product = await prisma.product.create({
         data: {
-          id: max_id +1,
           name: name,
           description: description,
           image_url: url,
@@ -206,13 +197,13 @@ export async function addToCartCookie(product_id: number){
     revalidatePath("/")
 }
 
-export async function removeFromCartCookie(cart_item_idx: number){
+export async function removeFromCartCookie(cart_item_idx: number, product_id: number){
     const cookieStore = await cookies()
 
     const cartItemsCookie = cookieStore.get('cart_items')
     const cart_items: number[] = JSON.parse(cartItemsCookie?.value || JSON.stringify({}))
 
-    if (cart_item_idx in cart_items){
+    if (cart_item_idx in cart_items && cart_items[cart_item_idx] === product_id){
       delete cart_items[cart_item_idx]
     }
 

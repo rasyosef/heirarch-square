@@ -35,7 +35,7 @@ export default function CartItemList({ cart_items }: { cart_items: CartItem[] })
                                 <span className='text-sm font-medium uppercase'>Price</span>
                                 <span className='text-xl font-semibold'>${cart_item.price}</span>
                             </div>
-                            <RemoveFromCartButton item_idx={cart_item.cart_item_id} />
+                            <RemoveFromCartButton item_idx={cart_item.cart_item_id} product_id={cart_item.id} />
                         </CardFooter>
                     </Card>
                 ))
