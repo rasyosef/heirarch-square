@@ -7,6 +7,7 @@ import { useActionState } from 'react';
 import { authenticateUser } from '@/lib/actions/user';
 import { useSearchParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
+import { AlertCircleIcon } from "lucide-react";
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
@@ -39,14 +40,21 @@ export default function LoginForm() {
               Forgot your password?
             </Link>
           </div>
-          <Input id="password" type="password" name="password" required />
+          <Input
+            id="password"
+            type="password"
+            name="password"
+            required
+          />
         </div>
         <Input type="hidden" name="redirectTo" value={callbackUrl} />
         <Button type="submit" className="w-full" aria-disabled={isPending}>
           Log In
         </Button>
         {errorMessage && (
-          <p className="text-sm text-red-500">{errorMessage}</p>
+          <p className="text-sm text-red-500 inline-flex items-center gap-2">
+            <AlertCircleIcon size="1.25em" /> {errorMessage}
+          </p>
         )}
       </div>
     </form>

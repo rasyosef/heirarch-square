@@ -5,9 +5,10 @@ import { Label } from "@/components/ui/label";
 import { useActionState } from 'react';
 import { createUser } from '@/lib/actions/user';
 import { Button } from "@/components/ui/button";
+import { AlertCircleIcon } from "lucide-react";
 
 export default function SignupForm() {
-  const [errorMessage, formAction, isPending] = useActionState(
+  const [formState, formAction, isPending] = useActionState(
     createUser,
     undefined,
   );
@@ -24,19 +25,34 @@ export default function SignupForm() {
             placeholder="name@example.com"
             required
           />
+          {formState?.errors?.email && (
+            <p className="text-red-500 text-sm">
+              {formState?.errors.email[0]}
+            </p>
+          )}
+
         </div>
         <div className="grid gap-2">
-          <div className="flex items-center">
-            <Label htmlFor="password" className="text-sm">Password</Label>
-          </div>
-          <Input id="password" type="password" name="password" required />
+          <Label htmlFor="password" className="text-sm">Password</Label>
+          <Input
+            id="password"
+            type="password"
+            name="password"
+            required
+          />
+          {formState?.errors?.password && (
+            <p className="text-red-500 text-sm">
+              {formState?.errors.password[0]}
+            </p>
+          )}
         </div>
-        {/* <Input type="hidden" name="redirectTo" value='/' /> */}
         <Button type="submit" className="w-full" aria-disabled={isPending}>
           Sign Up
         </Button>
-        {errorMessage && (
-          <p className="text-sm text-red-500">{errorMessage}</p>
+        {formState && (
+          <p className="text-sm text-red-500 inline-flex items-center gap-2">
+            <AlertCircleIcon size="1.25em" /> {formState.message}
+          </p>
         )}
       </div>
     </form>

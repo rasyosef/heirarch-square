@@ -28,24 +28,23 @@ export default async function Detail({ params }: { params: Promise<{ product_id:
   const prod_creator_email = await getProductCreatorEmail(Number(product_id))
   const session = await auth();
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-6 gap-4 py-4">
+    <div className="grid grid-cols-1 sm:grid-cols-6 gap-4 p-4">
       <Image
         src={product.image_url}
         alt={product.name}
         width={1024}
         height={1024}
-        className="col-span-1 sm:col-span-2 p-4"
+        className="col-span-1 sm:col-span-2"
       />
 
-      <div className="col-span-1 sm:col-span-3 flex flex-col gap-4 p-4">
+      <div className="col-span-1 sm:col-span-3 flex flex-col gap-4 px-4">
         <h1 className="text-xl font-medium">{product.name}</h1>
         <p className="text-md font-light">
           {product.description}
         </p>
       </div>
 
-      {/* <div className="col-span-1 sm:col-span-1 flex justify-center"> */}
-      <div className="col-span-1 sm:col-span-1 flex flex-col gap-8 p-4 w-full items-center">
+      <div className="col-span-1 sm:col-span-1 flex flex-col gap-8 w-full items-center">
         <div className='flex flex-col'>
           <span className='text-md font-medium uppercase'>Price</span>
           <span className='text-2xl font-medium'>${product.price}</span>
@@ -59,7 +58,6 @@ export default async function Detail({ params }: { params: Promise<{ product_id:
           }
         </div>
       </div>
-      {/* </div> */}
     </div>
   )
 }

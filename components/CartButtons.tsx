@@ -45,7 +45,7 @@ export function RemoveFromCartButton({ item_idx, product_id }: { item_idx: numbe
         toast.success("Item has been removed from cart!")
       }}
     >
-      <TrashIcon /> Remove from Cart
+      <TrashIcon /> Remove
     </Button>
   )
 }
