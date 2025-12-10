@@ -8,59 +8,59 @@ import { addProduct } from "@/lib/actions/product";
 import { useActionState } from "react";
 
 export default function AddProductForm() {
-    const [errorMessage, formAction, isPending] = useActionState(
-        addProduct,
-        undefined,
-    );
-    return (
-        <form action={formAction}>
-            <div className="flex flex-col gap-6">
-                <div className="grid gap-2">
-                    <Label htmlFor="name" className="text-sm">Name</Label>
-                    <Input
-                        id="name"
-                        type="text"
-                        name="name"
-                        placeholder="Name of your procuct"
-                        required
-                    />
-                </div>
-                <div className="grid gap-2">
-                    <Label htmlFor="image" className="text-sm">Picture</Label>
-                    <Input
-                        id="image"
-                        type="file"
-                        name="image"
-                        accept="image/png, image/jpeg, image/webp"
-                        required />
-                </div>
-                <div className="grid gap-2">
-                    <Label htmlFor="description" className="text-sm">Description</Label>
-                    <Textarea
-                        id="description"
-                        name="description"
-                        placeholder="description of your product"
-                        required
-                    />
-                </div>
-                <div className="grid gap-2">
-                    <Label htmlFor="price" className="text-sm">Price</Label>
-                    <Input
-                        id="price"
-                        type="number"
-                        name="price"
-                        step="1"
-                        placeholder="price in USD"
-                        required
-                    />
-                </div>
-                <Button type="submit" className="w-full" aria-disabled={isPending}>
-                    Add Product
-                </Button>
-                {errorMessage && (
-                    <p className="text-sm text-red-500">{errorMessage}</p>
-                )}
-            </div>
-        </form>
-    )
+  const [errorMessage, formAction, isPending] = useActionState(
+    addProduct,
+    undefined,
+  );
+  return (
+    <form action={formAction}>
+      <div className="flex flex-col gap-6">
+        <div className="grid gap-2">
+          <Label htmlFor="name" className="text-sm">Name</Label>
+          <Input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Name of your procuct"
+            required
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="image" className="text-sm">Picture</Label>
+          <Input
+            id="image"
+            type="file"
+            name="image"
+            accept="image/png, image/jpeg, image/webp"
+            required />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="description" className="text-sm">Description</Label>
+          <Textarea
+            id="description"
+            name="description"
+            placeholder="description of your product"
+            required
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="price" className="text-sm">Price</Label>
+          <Input
+            id="price"
+            type="number"
+            name="price"
+            step="1"
+            placeholder="price in USD"
+            required
+          />
+        </div>
+        <Button type="submit" className="w-full" aria-disabled={isPending}>
+          Add Product
+        </Button>
+        {errorMessage && (
+          <p className="text-sm text-red-500">{errorMessage}</p>
+        )}
+      </div>
+    </form>
+  )
 }
