@@ -11,7 +11,7 @@ export default function CartItemList({ cart_items }: { cart_items: CartItem[] })
     <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-4 pb-4">
       {
         cart_items.map((cart_item) => (
-          <Card key={cart_item.cart_item_id} className="justify-between gap-4">
+          <Card key={cart_item.cart_item_id} className="justify-between gap-4 rounded-md shadow-none">
             <div className="flex flex-col gap-4">
               <CardContent>
                 <Image
@@ -19,7 +19,7 @@ export default function CartItemList({ cart_items }: { cart_items: CartItem[] })
                   alt={cart_item.name}
                   width={1024}
                   height={1024}
-                  className="aspect-15/9"
+                  className="aspect-15/9 object-contain"
                 />
               </CardContent>
               <CardHeader>

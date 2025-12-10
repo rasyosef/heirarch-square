@@ -34,20 +34,21 @@ export default async function Detail({ params }: { params: Promise<{ product_id:
         alt={product.name}
         width={1024}
         height={1024}
-        className="col-span-1"
+        className="col-span-1 sm:col-span-1 p-4"
       />
 
-      <div className="col-span-1 sm:col-span-2 flex flex-col gap-4">
+      <div className="col-span-1 sm:col-span-2 flex flex-col gap-4 p-4">
         <h1 className="text-xl font-medium">{product.name}</h1>
         <p className="text-md font-light">
           {product.description}
         </p>
       </div>
 
-      <div className="col-span-1 sm:col-span-1 flex flex-col gap-8">
+      {/* <div className="col-span-1 sm:col-span-1 flex justify-center"> */}
+      <div className="col-span-1 sm:col-span-1 flex flex-col gap-8 p-4 w-full items-center">
         <div className='flex flex-col'>
-          <span className='text-sm font-medium uppercase'>Price</span>
-          <span className='text-xl font-semibold'>${product.price}</span>
+          <span className='text-md font-medium uppercase'>Price</span>
+          <span className='text-2xl font-medium'>${product.price}</span>
         </div>
         <div className="flex flex-col gap-4">
           <AddToCartButton product_id={product.id} />
@@ -58,6 +59,7 @@ export default async function Detail({ params }: { params: Promise<{ product_id:
           }
         </div>
       </div>
+      {/* </div> */}
     </div>
   )
 }

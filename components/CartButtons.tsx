@@ -22,13 +22,14 @@ export function AddToCartButton({ product_id }: { product_id: number }) {
   return (
     <Button
       size='lg'
+      className="rounded-full"
       onClick={async () => {
         await addToCartCookie(product_id)
 
         toast.success("Item has been added to cart!")
       }}
     >
-      <PlusIcon /> Add to cart
+      <PlusIcon /> Add to Cart
     </Button>
   )
 }
@@ -37,6 +38,7 @@ export function RemoveFromCartButton({ item_idx, product_id }: { item_idx: numbe
   return (
     <Button
       size='lg'
+      className="rounded-full"
       onClick={async () => {
         await removeFromCartCookie(item_idx, product_id)
 
@@ -52,6 +54,7 @@ export function EditProductButton({ product_id }: { product_id: number }) {
   return (
     <Button
       size='lg'
+      className="rounded-full"
       asChild
     >
       <Link href={`/dp/${product_id}/edit`}><EditIcon /> Edit </Link>
@@ -66,6 +69,7 @@ export function DeleteProductButton({ product_id }: { product_id: number }) {
         <Button
           size='lg'
           variant='outline'
+          className="rounded-full"
         >
           <TrashIcon /> Delete
         </Button>
