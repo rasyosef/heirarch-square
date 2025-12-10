@@ -10,24 +10,26 @@ export default function CartItemList({ cart_items }: { cart_items: CartItem[] })
             {
                 cart_items.map((cart_item) => (
                     <Card key={cart_item.cart_item_id} className="justify-between gap-4">
-                        <CardContent>
-                            <Image
-                                src={cart_item.image_url}
-                                alt={cart_item.name}
-                                width={1024}
-                                height={1024}
-                                className="aspect-15/9"
-                            />
-                        </CardContent>
-                        <CardHeader>
-                            <CardTitle>
-                                <Link
-                                    href={`/dp/${cart_item.id}`}
-                                    className="text-primary hover:text-gray-700"
-                                >{cart_item.name}</Link>
-                            </CardTitle>
-                            <CardDescription>{cart_item.description}</CardDescription>
-                        </CardHeader>
+                        <div className="flex flex-col gap-4">
+                            <CardContent>
+                                <Image
+                                    src={cart_item.image_url}
+                                    alt={cart_item.name}
+                                    width={1024}
+                                    height={1024}
+                                    className="aspect-15/9"
+                                />
+                            </CardContent>
+                            <CardHeader>
+                                <CardTitle>
+                                    <Link
+                                        href={`/dp/${cart_item.id}`}
+                                        className="text-primary hover:text-gray-700"
+                                    >{cart_item.name}</Link>
+                                </CardTitle>
+                                <CardDescription className="line-clamp-3">{cart_item.description}</CardDescription>
+                            </CardHeader>
+                        </div>
                         <CardFooter className="justify-between gap-3">
                             <div className='flex flex-col'>
                                 <span className='text-sm font-medium uppercase'>Price</span>

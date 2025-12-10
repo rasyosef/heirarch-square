@@ -10,24 +10,27 @@ export default function CardList({ products }: { products: Product[] }) {
             {
                 products.map((product) => (
                     <Card key={product.id} className="justify-between gap-4">
-                        <CardContent>
-                            <Image
-                                src={product.image_url}
-                                alt={product.name}
-                                width={1024}
-                                height={1024}
-                                className="aspect-15/9"
-                            />
-                        </CardContent>
-                        <CardHeader>
-                            <CardTitle>
-                                <Link
-                                    href={`/dp/${product.id}`}
-                                    className="text-primary hover:text-gray-700"
-                                >{product.name}</Link>
-                            </CardTitle>
-                            <CardDescription>{product.description}</CardDescription>
-                        </CardHeader>
+                        <div className="flex flex-col gap-4">
+                            <CardContent>
+                                <Image
+                                    src={product.image_url}
+                                    alt={product.name}
+                                    width={1024}
+                                    height={1024}
+                                    className="aspect-15/9"
+                                />
+                            </CardContent>
+
+                            <CardHeader>
+                                <CardTitle>
+                                    <Link
+                                        href={`/dp/${product.id}`}
+                                        className="text-primary hover:text-gray-700"
+                                    >{product.name}</Link>
+                                </CardTitle>
+                                <CardDescription className="line-clamp-3">{product.description}</CardDescription>
+                            </CardHeader>
+                        </div>
                         <CardFooter className="justify-between gap-3">
                             <div className='flex flex-col'>
                                 <span className='text-sm font-medium uppercase'>Price</span>
@@ -35,6 +38,7 @@ export default function CardList({ products }: { products: Product[] }) {
                             </div>
                             <AddToCartButton product_id={product.id} />
                         </CardFooter>
+
                     </Card>
                 ))
             }
