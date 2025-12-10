@@ -1,12 +1,12 @@
 'use client';
 
 import Link from "next/link";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useActionState } from 'react';
-import { authenticateUser } from '@/lib/actions';
+import { authenticateUser } from '@/lib/actions/user';
 import { useSearchParams } from 'next/navigation';
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 export default function LoginForm() {
     const searchParams = useSearchParams();

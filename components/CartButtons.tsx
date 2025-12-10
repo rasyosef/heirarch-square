@@ -1,7 +1,8 @@
 "use client";
 
-import { addToCartCookie, deleteProduct, removeFromCartCookie } from "@/lib/actions";
-import { Button } from "./ui/button";
+import { addToCartCookie, removeFromCartCookie } from "@/lib/actions/cart";
+import { deleteProduct } from "@/lib/actions/product";
+import { Button } from "@/components/ui/button";
 import { EditIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { toast } from "sonner"
 import Link from "next/link";

@@ -4,14 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { editProduct } from "@/lib/actions";
-import { Product } from "@/lib/definitions";
+import { addProduct } from "@/lib/actions/product";
 import { useActionState } from "react";
 
-export default function EditProductForm({ product }: { product: Product }) {
-    const editProductWithID = editProduct.bind(null, product.id)
+export default function AddProductForm() {
     const [errorMessage, formAction, isPending] = useActionState(
-        editProductWithID,
+        addProduct,
         undefined,
     );
     return (
@@ -23,16 +21,25 @@ export default function EditProductForm({ product }: { product: Product }) {
                         id="name"
                         type="text"
                         name="name"
-                        defaultValue={product.name}
+                        placeholder="Name of your procuct"
                         required
                     />
+                </div>
+                <div className="grid gap-2">
+                    <Label htmlFor="image" className="text-sm">Picture</Label>
+                    <Input
+                        id="image"
+                        type="file"
+                        name="image"
+                        accept="image/png, image/jpeg, image/webp"
+                        required />
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="description" className="text-sm">Description</Label>
                     <Textarea
                         id="description"
                         name="description"
-                        defaultValue={product.description}
+                        placeholder="description of your product"
                         required
                     />
                 </div>
@@ -43,12 +50,12 @@ export default function EditProductForm({ product }: { product: Product }) {
                         type="number"
                         name="price"
                         step="1"
-                        defaultValue={product.price}
+                        placeholder="price in USD"
                         required
                     />
                 </div>
                 <Button type="submit" className="w-full" aria-disabled={isPending}>
-                    Update Product
+                    Add Product
                 </Button>
                 {errorMessage && (
                     <p className="text-sm text-red-500">{errorMessage}</p>

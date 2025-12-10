@@ -1,4 +1,4 @@
-import { getProducts } from "@/lib/data";
+import { getProducts } from "@/lib/data/productData";
 import CardList from "@/components/CardList";
 
 export default async function Home() {

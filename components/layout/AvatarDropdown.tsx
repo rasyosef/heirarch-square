@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+    DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 import { LogInIcon, LogOutIcon, PlusIcon, SettingsIcon, ShoppingCartIcon, UserIcon, UserPlusIcon } from "lucide-react";
-import { Button } from "./ui/button";
-import { signOutUser } from "@/lib/actions";
+import { Button } from "@/components/ui/button";
+import { signOutUser } from "@/lib/actions/user";
 import { auth } from "@/auth";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export async function UserAvatarDropdown() {
     const session = await auth();

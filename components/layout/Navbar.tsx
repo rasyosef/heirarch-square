@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { ShoppingCartIcon } from "lucide-react";
-import { SidebarTrigger } from "./ui/sidebar";
-import SearchProducts from "./Search";
-import { Badge } from "./ui/badge";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import SearchProducts from "@/components/Search";
+import { Badge } from "@/components/ui/badge";
 import { Suspense } from "react";
-import { getCartItemsCountCookie } from "@/lib/data";
+import { getCartItemsCountCookie } from "@/lib/data/cartData";
 import { auth } from "@/auth";
-import { DefaultAvatarDropdown, UserAvatarDropdown } from "./AvatarDropdown";
+import { DefaultAvatarDropdown, UserAvatarDropdown } from "@/components/layout/AvatarDropdown";
 
 export default async function Navbar() {
     const num_items_in_cart = await getCartItemsCountCookie();

@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator } from "./ui/sidebar";
+import {
+    Sidebar, SidebarContent, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator
+} from "@/components/ui/sidebar";
 import Image from "next/image";
 import { DollarSign, Home, PlusIcon, ShoppingCart } from "lucide-react";
-import YourProductsMenu from "./YourProductsMenu";
+import YourProductsMenu from "@/components/layout/YourProductsMenu";
 
 export default function AppSidebar() {
     return (

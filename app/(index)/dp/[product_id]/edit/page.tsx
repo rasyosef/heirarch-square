@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
-import EditProductForm from "@/components/EditProductForm";
-import { getProductCreatorEmail, getSingleProduct } from "@/lib/data";
+import EditProductForm from "@/components/forms/EditProductForm";
+import { getProductCreatorEmail, getSingleProduct } from "@/lib/data/productData";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import z from "zod";

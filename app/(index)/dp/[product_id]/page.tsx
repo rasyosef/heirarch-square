@@ -1,6 +1,8 @@
 import { auth } from "@/auth";
-import { AddToCartButton, DeleteProductButton, EditProductButton } from "@/components/CartButtons";
-import { getProductCreatorEmail, getSingleProduct } from "@/lib/data"
+import {
+    AddToCartButton, DeleteProductButton, EditProductButton
+} from "@/components/CartButtons";
+import { getProductCreatorEmail, getSingleProduct } from "@/lib/data/productData"
 import Image from "next/image"
 import { notFound } from "next/navigation";
 import z from "zod";

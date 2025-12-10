@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { addProduct } from "@/lib/actions";
+import { editProduct } from "@/lib/actions/product";
+import { Product } from "@/lib/definitions";
 import { useActionState } from "react";
 
-export default function AddProductForm() {
+export default function EditProductForm({ product }: { product: Product }) {
+    const editProductWithID = editProduct.bind(null, product.id)
     const [errorMessage, formAction, isPending] = useActionState(
-        addProduct,
+        editProductWithID,
         undefined,
     );
     return (
@@ -21,25 +23,16 @@ export default function AddProductForm() {
                         id="name"
                         type="text"
                         name="name"
-                        placeholder="Name of your procuct"
+                        defaultValue={product.name}
                         required
                     />
-                </div>
-                <div className="grid gap-2">
-                    <Label htmlFor="image" className="text-sm">Picture</Label>
-                    <Input
-                        id="image"
-                        type="file"
-                        name="image"
-                        accept="image/png, image/jpeg, image/webp"
-                        required />
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="description" className="text-sm">Description</Label>
                     <Textarea
                         id="description"
                         name="description"
-                        placeholder="description of your product"
+                        defaultValue={product.description}
                         required
                     />
                 </div>
@@ -50,12 +43,12 @@ export default function AddProductForm() {
                         type="number"
                         name="price"
                         step="1"
-                        placeholder="price in USD"
+                        defaultValue={product.price}
                         required
                     />
                 </div>
                 <Button type="submit" className="w-full" aria-disabled={isPending}>
-                    Add Product
+                    Update Product
                 </Button>
                 {errorMessage && (
                     <p className="text-sm text-red-500">{errorMessage}</p>

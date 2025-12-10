@@ -1,5 +1,7 @@
 import { CartItem } from "@/lib/definitions"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+} from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import { RemoveFromCartButton } from "@/components/CartButtons";

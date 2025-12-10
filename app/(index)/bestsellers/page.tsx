@@ -1,5 +1,5 @@
 import CardList from "@/components/CardList";
-import { getBestSellers } from "@/lib/data";
+import { getBestSellers } from "@/lib/data/productData";
 
 export default async function BestSellers() {
     const best_sellers = await getBestSellers()

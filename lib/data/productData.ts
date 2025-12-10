@@ -1,6 +1,5 @@
-import { cookies } from "next/headers";
-import { CartItem, Product } from "./definitions"
-import { prisma } from './prisma';
+import { Product } from "@/lib/definitions"
+import { prisma } from '@/lib/prisma';
 
 export async function getProducts (): Promise<Product[]>{
     const products_list = await prisma.product.findMany();
@@ -75,66 +74,3 @@ export async function getProductsCreatedByUser(email: string): Promise<Product[]
     `;
     return products;
 }
-
-// COOKIE
-
-export async function getItemsInCartFromCookie(): Promise<CartItem[]>{
-    const cookieStore = await cookies()
-
-    const cartItemsCookie = cookieStore.get('cart_items')
-    const cart_items = JSON.parse(cartItemsCookie?.value || JSON.stringify({}))
-
-    const cart_products = Object.keys(cart_items).map(async (idx: string) => {
-        const item_id = Number(idx);
-        const product_id = cart_items[item_id]
-        
-        const product = await prisma.product.findFirst({
-            where: {
-                id: product_id
-            }
-        })
-
-        const item = <CartItem>{
-            cart_item_id: item_id,
-            id: product_id,
-            name: product?.name || 'product not found',
-            description: product?.description || 'This product is out of stock.',
-            image_url: product?.image_url || '/not-found.jpg',
-            price: product?.price || 0
-        }
-
-        return item;
-    })
-
-    const cart_items_list = await Promise.all(cart_products);
-    return cart_items_list
-}
-
-export async function getCartItemsCountCookie(){
-    const cookieStore = await cookies()
-
-    const cartItemsCookie = cookieStore.get('cart_items')
-    const cart_items = JSON.parse(cartItemsCookie?.value || JSON.stringify({}))
-
-    const num_items = Object.keys(cart_items).length;
-    return num_items
-}
-
-
-// export async function getItemsInCart(): Promise<CartItem[]>{
-//     const cart_products = await prisma.$queryRaw<CartItem[]>`
-//         SELECT 
-//             "Product".*,
-//             "CartItem".cart_item_id
-//         FROM "Product"
-//         JOIN "CartItem"
-//         ON "Product".id = "CartItem".product_id
-//         ORDER BY "CartItem".cart_item_id;
-//     `;
-//     return cart_products;
-// }
-
-// export async function getCartItemsCount(){
-//     const num_items = await prisma.cartItem.count();
-//     return num_items
-// }

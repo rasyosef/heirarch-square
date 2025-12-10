@@ -1,10 +1,10 @@
 'use client';
 
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useActionState } from 'react';
-import { createUser } from '@/lib/actions';
-import { Button } from "./ui/button";
+import { createUser } from '@/lib/actions/user';
+import { Button } from "@/components/ui/button";
 
 export default function SignupForm() {
     const [errorMessage, formAction, isPending] = useActionState(

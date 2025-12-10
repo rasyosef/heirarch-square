@@ -1,9 +1,11 @@
 'use client';
 
 import { SearchIcon } from "lucide-react";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
+import {
+    InputGroup, InputGroupAddon, InputGroupInput
+} from "@/components/ui/input-group";
 import { useSearchParams } from 'next/navigation';
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { redirect } from "next/navigation";
 

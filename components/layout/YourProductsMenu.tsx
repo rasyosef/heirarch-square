@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { auth } from "@/auth";
-import { getProductsCreatedByUser } from "@/lib/data";
+import { getProductsCreatedByUser } from "@/lib/data/productData";
 import { BoxIcon } from "lucide-react";
 
 

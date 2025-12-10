@@ -1,4 +1,4 @@
-import { searchProducts } from "@/lib/data";
+import { searchProducts } from "@/lib/data/productData";
 import CardList from "@/components/CardList";
 
 export default async function SearchPage(props: {

@@ -7,7 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import SignupForm from "@/components/SignupForm"
+import SignupForm from "@/components/forms/SignupForm"
 import Link from "next/link"
 import Image from "next/image"
 
