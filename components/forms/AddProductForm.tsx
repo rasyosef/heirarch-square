@@ -5,10 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { addProduct } from "@/lib/actions/product";
+import { AlertCircleIcon } from "lucide-react";
 import { useActionState } from "react";
 
 export default function AddProductForm() {
-  const [errorMessage, formAction, isPending] = useActionState(
+  const [formState, formAction, isPending] = useActionState(
     addProduct,
     undefined,
   );
@@ -22,8 +23,14 @@ export default function AddProductForm() {
             type="text"
             name="name"
             placeholder="Name of your procuct"
+            defaultValue={formState?.values.name ?? ""}
             required
           />
+          {formState?.errors?.name && (
+            <p className="text-red-500 text-sm">
+              {formState?.errors.name[0]}
+            </p>
+          )}
         </div>
         <div className="grid gap-2">
           <Label htmlFor="image" className="text-sm">Picture</Label>
@@ -33,6 +40,11 @@ export default function AddProductForm() {
             name="image"
             accept="image/png, image/jpeg, image/webp"
             required />
+          {formState?.errors?.image && (
+            <p className="text-red-500 text-sm">
+              {formState?.errors.image[0]}
+            </p>
+          )}
         </div>
         <div className="grid gap-2">
           <Label htmlFor="description" className="text-sm">Description</Label>
@@ -40,8 +52,14 @@ export default function AddProductForm() {
             id="description"
             name="description"
             placeholder="description of your product"
+            defaultValue={formState?.values.description ?? ""}
             required
           />
+          {formState?.errors?.description && (
+            <p className="text-red-500 text-sm">
+              {formState?.errors.description[0]}
+            </p>
+          )}
         </div>
         <div className="grid gap-2">
           <Label htmlFor="price" className="text-sm">Price</Label>
@@ -51,14 +69,22 @@ export default function AddProductForm() {
             name="price"
             step="1"
             placeholder="price in USD"
+            defaultValue={formState?.values.price ?? ""}
             required
           />
+          {formState?.errors?.price && (
+            <p className="text-red-500 text-sm">
+              {formState?.errors.price[0]}
+            </p>
+          )}
         </div>
         <Button type="submit" className="w-full" aria-disabled={isPending}>
           Add Product
         </Button>
-        {errorMessage && (
-          <p className="text-sm text-red-500">{errorMessage}</p>
+        {formState && (
+          <p className="text-sm text-red-500 inline-flex items-center gap-2">
+            <AlertCircleIcon size="1.25em" /> {formState.message}
+          </p>
         )}
       </div>
     </form>

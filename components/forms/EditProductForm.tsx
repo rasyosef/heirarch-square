@@ -6,11 +6,12 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { editProduct } from "@/lib/actions/product";
 import { Product } from "@/lib/definitions";
+import { AlertCircleIcon } from "lucide-react";
 import { useActionState } from "react";
 
 export default function EditProductForm({ product }: { product: Product }) {
   const editProductWithID = editProduct.bind(null, product.id)
-  const [errorMessage, formAction, isPending] = useActionState(
+  const [formState, formAction, isPending] = useActionState(
     editProductWithID,
     undefined,
   );
@@ -23,18 +24,28 @@ export default function EditProductForm({ product }: { product: Product }) {
             id="name"
             type="text"
             name="name"
-            defaultValue={product.name}
+            defaultValue={formState?.values.name ?? product.name}
             required
           />
+          {formState?.errors?.name && (
+            <p className="text-red-500 text-sm">
+              {formState?.errors.name[0]}
+            </p>
+          )}
         </div>
         <div className="grid gap-2">
           <Label htmlFor="description" className="text-sm">Description</Label>
           <Textarea
             id="description"
             name="description"
-            defaultValue={product.description}
+            defaultValue={formState?.values.description ?? product.description}
             required
           />
+          {formState?.errors?.description && (
+            <p className="text-red-500 text-sm">
+              {formState?.errors.description[0]}
+            </p>
+          )}
         </div>
         <div className="grid gap-2">
           <Label htmlFor="price" className="text-sm">Price</Label>
@@ -43,15 +54,22 @@ export default function EditProductForm({ product }: { product: Product }) {
             type="number"
             name="price"
             step="1"
-            defaultValue={product.price}
+            defaultValue={formState?.values.price ?? product.price}
             required
           />
+          {formState?.errors?.price && (
+            <p className="text-red-500 text-sm">
+              {formState?.errors.price[0]}
+            </p>
+          )}
         </div>
         <Button type="submit" className="w-full" aria-disabled={isPending}>
           Update Product
         </Button>
-        {errorMessage && (
-          <p className="text-sm text-red-500">{errorMessage}</p>
+        {formState && (
+          <p className="text-sm text-red-500 inline-flex items-center gap-2">
+            <AlertCircleIcon size="1.25em" /> {formState.message}
+          </p>
         )}
       </div>
     </form>
