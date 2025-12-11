@@ -12,11 +12,11 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/web
 export const ProductAddSchema = z.object({
   name: z.string().min(8,
     "Product name must be at least 8 characters."
-  ).max(64,
-    "Product name must be less than 64 characters."
+  ).max(128,
+    "Product name must be less than 128 characters."
   ),
-  description: z.string().max(256,
-    "Product description must be less than 256 characters."
+  description: z.string().max(512,
+    "Product description must be less than 512 characters."
   ),
   image: z.file("An image file is required").refine(
     (file) => file.size <= MAX_FILE_SIZE,
@@ -32,11 +32,11 @@ export const ProductAddSchema = z.object({
 export const ProductEditSchema = z.object({
   name: z.string().min(8,
     "Product name must be at least 8 characters."
-  ).max(64,
-    "Product name must be less than 64 characters."
+  ).max(128,
+    "Product name must be less than 128 characters."
   ),
-  description: z.string().max(256,
-    "Product description must be less than 256 characters."
+  description: z.string().max(512,
+    "Product description must be less than 512 characters."
   ),
   price: z.coerce.number().int().min(1, "Price must be at least $1.")
 })
