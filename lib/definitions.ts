@@ -12,5 +12,5 @@ export interface SaleData {
 };
 
 export interface CartItem extends Product {
-  cart_item_id: number,
+  count: number,
 }

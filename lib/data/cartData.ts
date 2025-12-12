@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
-import { CartItem } from "@/lib/definitions"
 import { prisma } from '@/lib/prisma';
+import { CartItem } from "../definitions";
 
 export async function getItemsInCartFromCookie(): Promise<CartItem[]> {
   const cookieStore = await cookies()
@@ -8,9 +8,9 @@ export async function getItemsInCartFromCookie(): Promise<CartItem[]> {
   const cartItemsCookie = cookieStore.get('cart_items')
   const cart_items = JSON.parse(cartItemsCookie?.value || JSON.stringify({}))
 
-  const cart_products = Object.keys(cart_items).map(async (idx: string) => {
-    const item_id = Number(idx);
-    const product_id = cart_items[item_id]
+  const cart_products = Object.keys(cart_items).map(async (id: string) => {
+    const product_id = Number(id);
+    const item_count = cart_items[product_id]
 
     const product = await prisma.product.findFirst({
       where: {
@@ -18,9 +18,9 @@ export async function getItemsInCartFromCookie(): Promise<CartItem[]> {
       }
     })
 
-    const item = <CartItem>{
-      cart_item_id: item_id,
+    const item: CartItem = {
       id: product_id,
+      count: item_count,
       name: product?.name || 'product not found',
       description: product?.description || 'This product is out of stock.',
       image_url: product?.image_url || '/not-found.jpg',
@@ -34,12 +34,14 @@ export async function getItemsInCartFromCookie(): Promise<CartItem[]> {
   return cart_items_list
 }
 
-export async function getCartItemsCountCookie() {
+export async function getCartItemsCountCookie(): Promise<number> {
   const cookieStore = await cookies()
 
   const cartItemsCookie = cookieStore.get('cart_items')
   const cart_items = JSON.parse(cartItemsCookie?.value || JSON.stringify({}))
 
-  const num_items = Object.keys(cart_items).length;
+  const item_counts: number[] = Object.values(cart_items)
+  const num_items: number = item_counts.reduce((total, val) => (total + val), 0);
+
   return num_items
 }
