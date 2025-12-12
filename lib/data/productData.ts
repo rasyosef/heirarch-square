@@ -27,31 +27,6 @@ export async function getBestSellers(): Promise<Product[]> {
   return best_sellers
 }
 
-export async function searchProducts(query: string): Promise<Product[]> {
-  const products_list = await getProducts();
-  const term_list = query.toLowerCase().trim().split(/\s+/);
-
-  function containsTerms(text: string, terms: string[]): number {
-    let matches = 0;
-    for (let i = 0; i < terms.length; i++)
-      matches = matches + Number(terms[i] !== '' && text.includes(terms[i]))
-    return matches;
-  }
-
-  const search_results = products_list.map(prod => (
-    {
-      product: prod,
-      matches: containsTerms(
-        prod.name.toLowerCase() + " " + prod.description.toLowerCase(),
-        term_list
-      )
-    }
-  ))
-
-  search_results.sort((a, b) => b.matches - a.matches);
-  return search_results.filter(x => x.matches > 0).map(x => x.product);
-}
-
 export async function getProductCreatorEmail(product_id: number) {
   const creator_email = await prisma.productCreatedBy.findFirst({
     where: {
@@ -73,4 +48,27 @@ export async function getProductsCreatedByUser(email: string): Promise<Product[]
         ORDER BY "Product".id
     `;
   return products;
+}
+
+export async function searchProducts(query: string): Promise<Product[]> {
+  const products_list = await getProducts();
+  const term_list = query.toLowerCase().trim().split(/\s+/);
+
+  function countMatches(text: string, terms: string[]): number {
+    const matches = terms.reduce((count, term) => count + Number(text.includes(term)), 0)
+    return matches;
+  }
+
+  const search_results = products_list.map(prod => (
+    {
+      product: prod,
+      match_count: countMatches(
+        prod.name.toLowerCase() + " " + prod.description.toLowerCase(),
+        term_list
+      )
+    }
+  ))
+
+  search_results.sort((a, b) => b.match_count - a.match_count);
+  return search_results.filter(x => x.match_count > 0).map(x => x.product);
 }

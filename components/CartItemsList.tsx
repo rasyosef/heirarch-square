@@ -35,7 +35,7 @@ export default function CartItemList({ cart_items }: { cart_items: CartItem[] })
             <CardFooter className="justify-between gap-3">
               <div className='flex flex-col'>
                 <span className='text-sm font-medium uppercase'>Price</span>
-                <span className='text-xl font-semibold'>${cart_item.price * cart_item.count}</span>
+                <span className='text-xl font-semibold'>${cart_item.price}</span>
               </div>
               <CartButtonGroup product_id={cart_item.id} product_count={cart_item.count} />
             </CardFooter>

@@ -24,7 +24,7 @@ export async function getItemsInCartFromCookie(): Promise<CartItem[]> {
       name: product?.name || 'product not found',
       description: product?.description || 'This product is out of stock.',
       image_url: product?.image_url || '/not-found.jpg',
-      price: product?.price || 0
+      price: (product?.price || 0) * item_count
     }
 
     return item;
