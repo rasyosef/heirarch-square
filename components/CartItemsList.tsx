@@ -13,7 +13,7 @@ export default function CartItemList({ cart_items }: { cart_items: CartItem[] })
         cart_items.map((cart_item) => (
           <Card key={cart_item.id} className="justify-between gap-4 rounded-md shadow-none">
             <div className="flex flex-col gap-4">
-              <CardContent>
+              <CardContent className="px-4 pb-2">
                 <Image
                   src={cart_item.image_url}
                   alt={cart_item.name}
