@@ -13,7 +13,7 @@ export default function CardList({ products }: { products: Product[] }) {
         products.map((product) => (
           <Card key={product.id} className="justify-between gap-4 rounded-md shadow-none">
             <div className="flex flex-col gap-4">
-              <CardContent className="px-2 pb-2">
+              <CardContent className="px-4 pb-2">
                 <Image
                   src={product.image_url}
                   alt={product.name}

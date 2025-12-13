@@ -30,7 +30,7 @@ export function AddToCartButton({ product_id }: { product_id: number }) {
         toast.success("Item has been added to cart!")
       }}
     >
-      <PlusIcon /> Add to Cart
+      <PlusIcon strokeWidth={2.5} /> Add to Cart
     </Button>
   )
 }
@@ -45,8 +45,7 @@ export function RemoveFromCartButton({ product_id }: { product_id: number }) {
         toast.success("Item has been removed from cart!")
       }}
     >
-      <MinusIcon />
-      <TrashIcon />
+      <TrashIcon strokeWidth={2.5} />
     </Button>
   )
 }
@@ -54,6 +53,7 @@ export function RemoveFromCartButton({ product_id }: { product_id: number }) {
 export function AddItemCountButton({ product_id }: { product_id: number }) {
   return (
     <Button
+      size="lg"
       className="rounded-r-full"
       onClick={async () => {
         await addToCartCookie(product_id)
@@ -61,7 +61,7 @@ export function AddItemCountButton({ product_id }: { product_id: number }) {
         toast.success("Item has been added to cart!")
       }}
     >
-      <PlusIcon />
+      <PlusIcon strokeWidth={2.5} />
     </Button>
   )
 }
@@ -69,15 +69,16 @@ export function AddItemCountButton({ product_id }: { product_id: number }) {
 export function SubtractItemCountButton({ product_id, product_count }: { product_id: number, product_count: number }) {
   return (
     <Button
-      className="rounded-l-full"
+      size="lg"
+      className="rounded-l-full px-2"
       onClick={async () => {
         await removeFromCartCookie(product_id)
 
         toast.success("Item has been removed from cart!")
       }}
     >
-      {product_count <= 1 && <TrashIcon />}
-      {product_count > 1 && <MinusIcon />}
+      {product_count <= 1 && <TrashIcon strokeWidth={2.5} />}
+      {product_count > 1 && <MinusIcon strokeWidth={2.5} />}
     </Button>
   )
 }
@@ -87,7 +88,7 @@ export function CartButtonGroup({ product_id, product_count }: { product_id: num
   return (
     <ButtonGroup>
       <SubtractItemCountButton product_id={product_id} product_count={product_count} />
-      <Button variant="ghost" className="bg-primary text-secondary font-bold hover:bg-primary hover:text-secondary">
+      <Button size="lg" variant="ghost" className="bg-primary text-secondary font-bold hover:bg-primary hover:text-secondary px-2">
         {product_count}
       </Button>
       <AddItemCountButton product_id={product_id} />
@@ -102,7 +103,7 @@ export function EditProductButton({ product_id }: { product_id: number }) {
       className="rounded-full bg-gray-900 hover:bg-gray-800"
       asChild
     >
-      <Link href={`/dp/${product_id}/edit`}><EditIcon /> Edit </Link>
+      <Link href={`/dp/${product_id}/edit`}><EditIcon strokeWidth={2.5} /> Edit </Link>
     </Button>
   )
 }
@@ -116,7 +117,7 @@ export function DeleteProductButton({ product_id }: { product_id: number }) {
           variant='outline'
           className="rounded-full"
         >
-          <Trash2Icon /> Delete
+          <Trash2Icon strokeWidth={2.5} /> Delete
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="w-sm">
