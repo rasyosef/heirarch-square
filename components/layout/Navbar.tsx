@@ -13,7 +13,7 @@ export default async function Navbar() {
   const session = await auth();
 
   return (
-    <nav className="flex items-center p-2 border-b bg-sidebar">
+    <nav className="flex items-center p-2 gap-4 border-b bg-sidebar">
       <SidebarTrigger />
       <div className="flex gap-6 items-center ml-auto pr-2">
         <Suspense>
