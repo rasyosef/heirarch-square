@@ -7,7 +7,6 @@ import Link from "next/link";
 import { AddToCartButton } from "@/components/CartButtons";
 
 export default async function SearchResultsList({ query }: { query: string }) {
-
   const products = await searchProducts(query)
 
   return (
