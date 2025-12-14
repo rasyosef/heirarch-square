@@ -5,8 +5,11 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { CartButtonGroup } from "@/components/CartButtons";
+import { getItemsInCartFromCookie } from "@/lib/data/cartData";
 
-export default function CartItemList({ cart_items }: { cart_items: CartItem[] }) {
+export default async function CartItemList() {
+  const cart_items: CartItem[] = await getItemsInCartFromCookie()
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-4 pb-4">
       {

@@ -5,8 +5,12 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { AddToCartButton } from "@/components/CartButtons";
+import { getBestSellers, getProducts } from "@/lib/data/productData";
 
-export default function CardList({ products }: { products: Product[] }) {
+export default async function CardList({ page }: { page: string }) {
+  const fetchFunction = (page === "home") ? getProducts : getBestSellers;
+  const products: Product[] = await fetchFunction()
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-4 pb-4">
       {

@@ -1,12 +1,14 @@
-import { getProducts } from "@/lib/data/productData";
 import CardList from "@/components/CardList";
+import { CardListSkeleton } from "@/components/skeletons";
+import { Suspense } from "react";
 
 export default async function Home() {
-  const products = await getProducts()
   return (
     <div>
       <h1 className="text-lg font-medium py-4">Products</h1>
-      <CardList products={products} />
+      <Suspense fallback={<CardListSkeleton />}>
+        <CardList page="home" />
+      </Suspense>
     </div>
   );
 }

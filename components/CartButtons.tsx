@@ -77,7 +77,7 @@ export function SubtractItemCountButton({ product_id, product_count }: { product
         toast.success("Item has been removed from cart!")
       }}
     >
-      {product_count <= 1 && <TrashIcon strokeWidth={2.5} />}
+      {product_count <= 1 && <TrashIcon />}
       {product_count > 1 && <MinusIcon strokeWidth={2.5} />}
     </Button>
   )

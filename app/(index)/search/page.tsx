@@ -1,5 +1,4 @@
-import { searchProducts } from "@/lib/data/productData";
-import CardList from "@/components/CardList";
+import SearchResultsList from "@/components/SearchResultsList";
 
 export default async function SearchPage(props: {
   searchParams?: Promise<{
@@ -8,11 +7,11 @@ export default async function SearchPage(props: {
 }) {
   const searchParams = await props.searchParams;
   const query = searchParams?.query || '';
-  const products = await searchProducts(query)
+
   return (
     <div>
       <h1 className="text-lg font-medium py-4">Search Results</h1>
-      <CardList products={products} />
+      <SearchResultsList query={query} />
     </div>
   );
 }
