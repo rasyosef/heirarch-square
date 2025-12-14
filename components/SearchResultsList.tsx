@@ -11,11 +11,11 @@ export default async function SearchResultsList({ query }: { query: string }) {
   const products = await searchProducts(query)
 
   return (
-    <div className="flex flex-col gap-4 w-full lg:w-4/5">
+    <div className="flex flex-col gap-4 pb-4 w-full lg:w-4/5">
       {
         products.map((product) => (
           <Card key={product.id} className="flex-col sm:flex-row rounded-md shadow-none p-0 gap-0">
-            <CardContent className="w-full sm:w-1/4 py-4 flex justify-center bg-sidebar">
+            <CardContent className="w-full sm:w-3/10 py-4 flex justify-center bg-sidebar">
               <Image
                 src={product.image_url}
                 alt={product.name}
@@ -25,7 +25,7 @@ export default async function SearchResultsList({ query }: { query: string }) {
               />
             </CardContent>
 
-            <div className="w-full sm:w-3/4 flex flex-col justify-between gap-2 p-4">
+            <div className="w-full sm:w-7/10 flex flex-col justify-between gap-4 p-4 py-6">
               <CardHeader className="px-2">
                 <CardTitle>
                   <Link
