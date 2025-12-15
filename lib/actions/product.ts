@@ -6,7 +6,6 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { put } from "@vercel/blob";
 import { ProductAddSchema, ProductEditSchema } from "@/lib/actions/schema";
-import { success } from "zod";
 
 export async function addProduct(
   prevState: any,
@@ -61,7 +60,6 @@ export async function addProduct(
     new_product_id = product.id;
   }
   catch (error) {
-    // console.log(error)
     return {
       values: {
         name: formData.get("name") as string,
@@ -118,7 +116,6 @@ export async function editProduct(
     })
   }
   catch (error) {
-    // console.log(error)
     return {
       values: {
         name: formData.get("name") as string,

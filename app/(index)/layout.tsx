@@ -23,7 +23,7 @@ export default async function RootLayout({
             {children}
           </div>
         </main>
-        <Toaster richColors />
+        <Toaster />
       </SidebarProvider>
     </div>
   );

@@ -19,6 +19,10 @@ import {
 } from "@/components/ui/alert-dialog"
 import { ButtonGroup } from "@/components/ui/button-group";
 
+const successStyle = { color: "#006400", border: "1px solid #006400" }
+const errorStyle = { color: "#DC143C", border: "1px solid #DC143C" }
+
+
 export function AddToCartButton({ product_id }: { product_id: number }) {
   return (
     <Button
@@ -27,7 +31,10 @@ export function AddToCartButton({ product_id }: { product_id: number }) {
       onClick={async () => {
         await addToCartCookie(product_id)
 
-        toast.success("Item has been added to cart!")
+        toast.success(
+          "Item has been added to cart!", {
+          style: successStyle
+        })
       }}
     >
       <PlusIcon strokeWidth={2.5} /> Add to Cart
@@ -42,7 +49,10 @@ export function RemoveFromCartButton({ product_id }: { product_id: number }) {
       onClick={async () => {
         await removeFromCartCookie(product_id)
 
-        toast.success("Item has been removed from cart!")
+        toast.success(
+          "Item has been removed from cart!", {
+          style: successStyle
+        })
       }}
     >
       <TrashIcon strokeWidth={2.5} />
@@ -58,7 +68,10 @@ export function AddItemCountButton({ product_id }: { product_id: number }) {
       onClick={async () => {
         await addToCartCookie(product_id)
 
-        toast.success("Item has been added to cart!")
+        toast.success(
+          "Item has been added to cart!", {
+          style: successStyle
+        })
       }}
     >
       <PlusIcon strokeWidth={2.5} />
@@ -74,7 +87,10 @@ export function SubtractItemCountButton({ product_id, product_count }: { product
       onClick={async () => {
         await removeFromCartCookie(product_id)
 
-        toast.success("Item has been removed from cart!")
+        toast.success(
+          "Item has been removed from cart!", {
+          style: successStyle
+        })
       }}
     >
       {product_count <= 1 && <TrashIcon />}
@@ -135,7 +151,9 @@ export function DeleteProductButton({ product_id }: { product_id: number }) {
               onClick={async () => {
                 const result = await deleteProduct(product_id)
                 if (result.errors) {
-                  toast.warning("Something went wrong.", { description: "Unable to delete product!" })
+                  toast.error("Unable to delete product!", {
+                    style: errorStyle
+                  })
                 }
               }}
             >
