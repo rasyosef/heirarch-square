@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { put } from "@vercel/blob";
 import { ProductAddSchema, ProductEditSchema } from "@/lib/actions/schema";
+import { success } from "zod";
 
 export async function addProduct(
   prevState: any,
@@ -134,35 +135,43 @@ export async function editProduct(
 }
 
 export async function deleteProduct(product_id: number) {
-  await prisma.$transaction(async (tx) => {
-    // delete product
-    await tx.product.delete({
-      where: {
-        id: product_id
-      }
-    })
+  try {
+    await prisma.$transaction(async (tx) => {
 
-    // delete it from all carts
-    await tx.cartItem.deleteMany({
-      where: {
-        product_id: product_id
-      }
-    })
+      // delete product
+      await tx.product.delete({
+        where: {
+          id: product_id
+        }
+      })
 
-    // delete product from bestsellers
-    await tx.saleData.deleteMany({
-      where: {
-        product_id: product_id
-      }
-    })
+      // delete it from all carts
+      await tx.cartItem.deleteMany({
+        where: {
+          product_id: product_id
+        }
+      })
 
-    // delete product from creators table
-    await tx.productCreatedBy.deleteMany({
-      where: {
-        product_id: product_id
-      }
+      // delete product from bestsellers
+      await tx.saleData.deleteMany({
+        where: {
+          product_id: product_id
+        }
+      })
+
+      // delete product from creators table
+      await tx.productCreatedBy.deleteMany({
+        where: {
+          product_id: product_id
+        }
+      })
     })
-  })
+  } catch {
+    return {
+      errors: true,
+      message: "Error occured!"
+    }
+  }
 
   revalidatePath("/")
   redirect('/')

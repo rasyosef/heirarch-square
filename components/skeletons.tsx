@@ -33,7 +33,6 @@ export function SearchResultsListSkeleton() {
       <SearchResultSkeleton />
       <SearchResultSkeleton />
       <SearchResultSkeleton />
-      <SearchResultSkeleton />
     </div>
   )
 }
@@ -41,10 +40,10 @@ export function SearchResultsListSkeleton() {
 function SearchResultSkeleton() {
   return (
     <div className="flex flex-col sm:flex-row p-0 gap-0 rounded-md shadow-none border ">
-      <div className="w-full sm:w-3/10 p-4 px-6 bg-gray-200">
+      <div className="w-full sm:w-3/10 p-4 px-6 bg-gray-100">
         <Skeleton className="aspect-17/10 bg-white" />
       </div>
-      <div className="w-full sm:w-7/10 bg-gray-100 flex flex-col justify-between gap-4 p-4 py-6">
+      <div className="w-full sm:w-7/10 bg-gray-50 flex flex-col justify-between gap-4 p-4 py-6">
         <div className="px-2">
           <Skeleton className="h-18 bg-gray-200" />
         </div>

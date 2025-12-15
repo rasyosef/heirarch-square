@@ -128,11 +128,15 @@ export function DeleteProductButton({ product_id }: { product_id: number }) {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="rounded-full">Cancel</AlertDialogCancel>
           <AlertDialogAction asChild>
             <Button
+              className="rounded-full"
               onClick={async () => {
-                await deleteProduct(product_id)
+                const result = await deleteProduct(product_id)
+                if (result.errors) {
+                  toast.warning("Something went wrong.", { description: "Unable to delete product!" })
+                }
               }}
             >
               Delete

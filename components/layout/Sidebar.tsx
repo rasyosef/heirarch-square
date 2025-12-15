@@ -5,6 +5,7 @@ import {
 import Image from "next/image";
 import { DollarSign, Home, PlusIcon, ShoppingCart } from "lucide-react";
 import YourProductsMenu from "@/components/layout/YourProductsMenu";
+import { Suspense } from "react";
 
 export default function AppSidebar() {
   return (
@@ -54,7 +55,9 @@ export default function AppSidebar() {
             </Link>
           </SidebarGroupAction>
           <SidebarGroupContent>
-            <YourProductsMenu />
+            <Suspense>
+              <YourProductsMenu />
+            </Suspense>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
