@@ -9,6 +9,14 @@ import { signOutUser } from "@/lib/actions/user";
 import { auth } from "@/auth";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
+export async function AvatarDropdown() {
+  const session = await auth();
+  if (session)
+    return (<UserAvatarDropdown />)
+  else
+    return (<DefaultAvatarDropdown />)
+}
+
 export async function UserAvatarDropdown() {
   const session = await auth();
   let avatar_fallback: string = 'U';
