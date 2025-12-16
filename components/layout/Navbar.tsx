@@ -1,17 +1,9 @@
-export const dynamic = 'force-dynamic';
-
-import Link from "next/link";
-import { ShoppingCartIcon } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import SearchProducts from "@/components/Search";
-import { Badge } from "@/components/ui/badge";
 import { Suspense } from "react";
-import { getCartItemsCountCookie } from "@/lib/data/cartData";
-import { AvatarDropdown } from "@/components/layout/AvatarDropdown";
+import { AvatarDropdown, CartWithBadge } from "@/components/layout/AvatarDropdown";
 
-export default async function Navbar() {
-  const num_items_in_cart = await getCartItemsCountCookie();
-
+export default function Navbar() {
   return (
     <nav className="flex items-center p-2 gap-4 border-b bg-sidebar">
       <SidebarTrigger />
@@ -19,13 +11,7 @@ export default async function Navbar() {
         <Suspense>
           <SearchProducts />
         </Suspense>
-        <Link href="/cart">
-          <div className="relative">
-            <ShoppingCartIcon />
-            <Badge className="absolute -top-2.5 -right-2.5 text-xs px-1 py-0 rounded-full bg-primary">{num_items_in_cart}</Badge>
-            <span className="sr-only">Shopping Cart</span>
-          </div>
-        </Link>
+        <CartWithBadge />
         <AvatarDropdown />
       </div>
     </nav>

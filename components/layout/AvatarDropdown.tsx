@@ -8,6 +8,24 @@ import { Button } from "@/components/ui/button";
 import { signOutUser } from "@/lib/actions/user";
 import { auth } from "@/auth";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { getCartItemsCountCookie } from "@/lib/data/cartData";
+import { Badge } from "@/components/ui/badge";
+
+export async function CartWithBadge() {
+  const num_items_in_cart = await getCartItemsCountCookie();
+
+  return (
+    <Link href="/cart">
+      <div className="relative">
+        <ShoppingCartIcon />
+        <Badge className="absolute -top-2.5 -right-2.5 text-xs px-1 py-0 rounded-full bg-primary">
+          {num_items_in_cart}
+        </Badge>
+        <span className="sr-only">Shopping Cart</span>
+      </div>
+    </Link>
+  )
+}
 
 export async function AvatarDropdown() {
   const session = await auth();
