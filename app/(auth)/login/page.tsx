@@ -11,8 +11,17 @@ import LoginForm from "@/components/forms/LoginForm"
 import Link from "next/link"
 import { Suspense } from "react"
 import Image from "next/image"
+import { auth } from "@/auth"
+import { redirect } from "next/navigation"
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await auth();
+
+  // redirect logged in users to the homepage
+  if (session) {
+    redirect("/")
+  }
+
   return (
     <div className="flex justify-center px-4 py-16">
       <Card className="w-full max-w-sm">

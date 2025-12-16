@@ -28,7 +28,7 @@ export async function authenticateUser(
 }
 
 export async function createUser(
-  prevState: any,
+  prevState: { errors: object | null, message: string } | undefined,
   formData: FormData,
 ) {
 
@@ -57,14 +57,14 @@ export async function createUser(
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    const newUser = await prisma.user.create({
+    await prisma.user.create({
       data: {
         email: email,
         passwordHash: hashedPassword
       }
     })
 
-  } catch (error) {
+  } catch {
     return {
       errors: null,
       message: "Something went wrong!"

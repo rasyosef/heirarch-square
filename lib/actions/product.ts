@@ -8,7 +8,11 @@ import { put } from "@vercel/blob";
 import { ProductAddSchema, ProductEditSchema } from "@/lib/actions/schema";
 
 export async function addProduct(
-  prevState: any,
+  prevState: {
+    values: object | null,
+    errors: object | null,
+    message: string
+  } | undefined,
   formData: FormData,
 ) {
   const session = await auth()
@@ -59,7 +63,7 @@ export async function addProduct(
 
     new_product_id = product.id;
   }
-  catch (error) {
+  catch {
     return {
       values: {
         name: formData.get("name") as string,
@@ -78,7 +82,11 @@ export async function addProduct(
 
 export async function editProduct(
   product_id: number,
-  prevState: any,
+  prevState: {
+    values: object | null,
+    errors: object | null,
+    message: string
+  } | undefined,
   formData: FormData,
 ) {
 
@@ -104,7 +112,7 @@ export async function editProduct(
   const { name, description, price } = validatedData.data;
 
   try {
-    const product = await prisma.product.update({
+    await prisma.product.update({
       data: {
         name: name,
         description: description,
@@ -115,7 +123,7 @@ export async function editProduct(
       }
     })
   }
-  catch (error) {
+  catch {
     return {
       values: {
         name: formData.get("name") as string,

@@ -10,8 +10,17 @@ import {
 import SignupForm from "@/components/forms/SignupForm"
 import Link from "next/link"
 import Image from "next/image"
+import { auth } from "@/auth"
+import { redirect } from "next/navigation"
 
-export default function SignupPage() {
+export default async function SignupPage() {
+  const session = await auth();
+
+  // redirect logged in users to the homepage
+  if (session) {
+    redirect("/")
+  }
+
   return (
     <div className="flex justify-center px-4 py-16">
       <Card className="w-full max-w-sm">
