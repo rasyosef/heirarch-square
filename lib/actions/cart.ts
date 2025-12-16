@@ -23,7 +23,6 @@ export async function addToCartCookie(product_id: number) {
       maxAge: 60 * 60 * 24 * 15, // 15 day duration
       httpOnly: true, // Recommended for security
       secure: true, // Ensures cookie is sent only over HTTPS
-      sameSite: 'strict', // Controls cross-origin requests behavior
     }
   )
 
@@ -52,7 +51,6 @@ export async function removeFromCartCookie(product_id: number) {
       maxAge: 60 * 60 * 24 * 15, // 15 day duration
       httpOnly: true, // Recommended for security
       secure: true, // Ensures cookie is sent only over HTTPS
-      sameSite: 'strict', // Controls cross-origin requests behavior
     }
   )
   revalidatePath("/")
