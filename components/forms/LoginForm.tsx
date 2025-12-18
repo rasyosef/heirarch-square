@@ -8,6 +8,7 @@ import { authenticateUser } from '@/lib/actions/user';
 import { useSearchParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { AlertCircleIcon } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
@@ -49,6 +50,7 @@ export default function LoginForm() {
         </div>
         <Input type="hidden" name="redirectTo" value={callbackUrl} />
         <Button type="submit" className="w-full" aria-disabled={isPending}>
+          {isPending && <Spinner />}
           Log In
         </Button>
         {errorMessage && (

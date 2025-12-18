@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { addProduct } from "@/lib/actions/product";
 import { AlertCircleIcon } from "lucide-react";
 import { useActionState } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function AddProductForm() {
   const [formState, formAction, isPending] = useActionState(
@@ -79,6 +80,7 @@ export default function AddProductForm() {
           )}
         </div>
         <Button type="submit" className="w-full" aria-disabled={isPending}>
+          {isPending && <Spinner />}
           Add Product
         </Button>
         {formState && (

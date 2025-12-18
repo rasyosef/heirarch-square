@@ -8,6 +8,7 @@ import { editProduct } from "@/lib/actions/product";
 import { Product } from "@/lib/definitions";
 import { AlertCircleIcon } from "lucide-react";
 import { useActionState } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function EditProductForm({ product }: { product: Product }) {
   const editProductWithID = editProduct.bind(null, product.id)
@@ -64,6 +65,7 @@ export default function EditProductForm({ product }: { product: Product }) {
           )}
         </div>
         <Button type="submit" className="w-full" aria-disabled={isPending}>
+          {isPending && <Spinner />}
           Update Product
         </Button>
         {formState && (

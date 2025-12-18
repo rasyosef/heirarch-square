@@ -6,6 +6,7 @@ import { useActionState } from 'react';
 import { createUser } from '@/lib/actions/user';
 import { Button } from "@/components/ui/button";
 import { AlertCircleIcon } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function SignupForm() {
   const [formState, formAction, isPending] = useActionState(
@@ -47,6 +48,7 @@ export default function SignupForm() {
           )}
         </div>
         <Button type="submit" className="w-full" aria-disabled={isPending}>
+          {isPending && <Spinner />}
           Sign Up
         </Button>
         {formState && (
