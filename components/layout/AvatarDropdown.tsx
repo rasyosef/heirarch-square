@@ -95,7 +95,7 @@ export function DefaultAvatarDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar>
+        <Avatar className="bg-secondary dark:bg-primary">
           <AvatarImage src="/userIcon.png" />
           <AvatarFallback>U</AvatarFallback>
         </Avatar>
