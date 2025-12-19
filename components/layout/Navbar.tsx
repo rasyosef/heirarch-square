@@ -2,7 +2,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import SearchProducts from "@/components/Search";
 import { Suspense } from "react";
 import { AvatarDropdown, CartWithBadge } from "@/components/layout/AvatarDropdown";
-import { ThemeModes } from "@/components/layout/Themes";
+import { ToggleThemeModes } from "@/components/layout/Themes";
 
 export default function Navbar() {
   return (
@@ -12,7 +12,7 @@ export default function Navbar() {
         <Suspense>
           <SearchProducts />
         </Suspense>
-        <ThemeModes />
+        <ToggleThemeModes />
         <CartWithBadge />
         <AvatarDropdown />
       </div>
