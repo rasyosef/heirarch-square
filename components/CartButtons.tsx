@@ -116,7 +116,7 @@ export function EditProductButton({ product_id }: { product_id: number }) {
   return (
     <Button
       size='lg'
-      className="rounded-full bg-gray-900 hover:bg-gray-800"
+      className="rounded-full bg-gray-900 hover:bg-gray-800 text-primary-foreground dark:text-secondary-foreground"
       asChild
     >
       <Link href={`/dp/${product_id}/edit`}><EditIcon strokeWidth={2.5} /> Edit </Link>
