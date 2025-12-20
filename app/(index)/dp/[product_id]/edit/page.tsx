@@ -33,7 +33,7 @@ export default async function EditProduct({ params }: { params: Promise<{ produc
           alt={product.name}
           width={1024}
           height={1024}
-          className="pb-4"
+          className="pb-4 rounded-md"
         />
         <div className="py-4">
           <h1 className="text-lg font-medium">Edit Product</h1>

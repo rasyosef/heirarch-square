@@ -1,5 +1,5 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import SearchProducts from "@/components/Search";
+import SearchProducts from "@/components/layout/Search";
 import { Suspense } from "react";
 import { AvatarDropdown, CartWithBadge } from "@/components/layout/AvatarDropdown";
 import { ToggleThemeModes } from "@/components/layout/Themes";

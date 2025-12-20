@@ -34,7 +34,7 @@ export default async function Detail({ params }: { params: Promise<{ product_id:
         alt={product.name}
         width={1024}
         height={1024}
-        className="col-span-1 sm:col-span-2"
+        className="col-span-1 sm:col-span-2 rounded-md"
       />
 
       <div className="col-span-1 sm:col-span-3 flex flex-col gap-4 px-4">

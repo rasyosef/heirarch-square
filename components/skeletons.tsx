@@ -40,11 +40,11 @@ export function SearchResultsListSkeleton() {
 function SearchResultSkeleton() {
   return (
     <div className="flex flex-col sm:flex-row p-0 gap-0 rounded-md shadow-none border ">
-      <div className="w-full sm:w-3/10 p-4 px-6 bg-gray-100 dark:bg-gray-900">
-        <Skeleton className="aspect-17/10 bg-white dark:bg-gray-800" />
+      <div className="flex flex-col justify-center w-full sm:w-3/10 p-4 px-6 bg-gray-100 dark:bg-gray-900">
+        <Skeleton className="aspect-17/10 w-full bg-white dark:bg-gray-800" />
       </div>
       <div className="w-full sm:w-7/10 bg-gray-50 dark:bg-gray-800 flex flex-col justify-between gap-4 p-4 py-6">
-        <div className="px-2">
+        <div className="flex flex-col justify-center px-2">
           <Skeleton className="h-18 bg-gray-200 dark:bg-gray-900" />
         </div>
 

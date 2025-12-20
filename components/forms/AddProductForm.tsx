@@ -23,7 +23,7 @@ export default function AddProductForm() {
             id="name"
             type="text"
             name="name"
-            placeholder="Name of your procuct"
+            placeholder="Name of your product"
             defaultValue={formState?.values.name ?? ""}
             required
           />

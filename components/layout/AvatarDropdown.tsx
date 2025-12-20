@@ -46,7 +46,6 @@ export async function UserAvatarDropdown() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar>
-          {/* <AvatarImage src="https://assetsio.gnwcdn.com/the_witcher_3_wild_hunt_e3_2014_18.jpg?width=100&height=100&fit=crop&quality=100&format=png&enable=upscale&auto=webp" /> */}
           <Tooltip>
             <TooltipTrigger asChild>
               <AvatarFallback
