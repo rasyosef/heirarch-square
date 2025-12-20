@@ -104,7 +104,11 @@ export function CartButtonGroup({ product_id, product_count }: { product_id: num
   return (
     <ButtonGroup>
       <SubtractItemCountButton product_id={product_id} product_count={product_count} />
-      <Button size="lg" variant="ghost" className="bg-primary text-secondary font-bold hover:bg-primary hover:text-secondary px-2">
+      <Button
+        size="lg"
+        variant="ghost"
+        className="bg-primary text-secondary font-bold hover:bg-primary hover:text-secondary dark:hover:bg-primary px-2"
+      >
         {product_count}
       </Button>
       <AddItemCountButton product_id={product_id} />
