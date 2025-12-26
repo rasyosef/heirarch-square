@@ -2,8 +2,8 @@ import { Product } from "@/lib/definitions"
 import { prisma } from '@/lib/prisma';
 
 export async function getProducts(): Promise<Product[]> {
-  const products_list = await prisma.product.findMany();
-  return products_list
+  const productsList = await prisma.product.findMany();
+  return productsList
 }
 
 export async function getSingleProduct(id: number): Promise<Product> {
@@ -16,7 +16,7 @@ export async function getSingleProduct(id: number): Promise<Product> {
 }
 
 export async function getBestSellers(): Promise<Product[]> {
-  const best_sellers = await prisma.$queryRaw<Product[]>`
+  const bestSellers = await prisma.$queryRaw<Product[]>`
         SELECT 
             "Product".* 
         FROM "Product"
@@ -24,17 +24,17 @@ export async function getBestSellers(): Promise<Product[]> {
         ON "Product".id = "SaleData".product_id
         ORDER BY "SaleData".num_sold DESC;
     `;
-  return best_sellers
+  return bestSellers
 }
 
 export async function getProductCreatorEmail(product_id: number) {
-  const creator_email = await prisma.productCreatedBy.findFirst({
+  const creatorEmail = await prisma.productCreatedBy.findFirst({
     where: {
       product_id: product_id
     }
   }).then(res => res?.created_by_email)
 
-  return creator_email;
+  return creatorEmail;
 }
 
 export async function getProductsCreatedByUser(email: string): Promise<Product[]> {
@@ -51,24 +51,24 @@ export async function getProductsCreatedByUser(email: string): Promise<Product[]
 }
 
 export async function searchProducts(query: string): Promise<Product[]> {
-  const products_list = await getProducts();
-  const term_list = query.toLowerCase().trim().split(/\s+/);
+  const productsList = await getProducts();
+  const termList = query.toLowerCase().trim().split(/\s+/);
 
   function countMatches(text: string, terms: string[]): number {
     const matches = terms.reduce((count, term) => count + Number(text.includes(term)), 0)
     return matches;
   }
 
-  const search_results = products_list.map(prod => (
+  const searchResults = productsList.map(prod => (
     {
       product: prod,
       match_count: countMatches(
         prod.name.toLowerCase() + " " + prod.description.toLowerCase(),
-        term_list
+        termList
       )
     }
   ))
 
-  search_results.sort((a, b) => b.match_count - a.match_count);
-  return search_results.filter(x => x.match_count > 0).map(x => x.product);
+  searchResults.sort((a, b) => b.match_count - a.match_count);
+  return searchResults.filter(x => x.match_count > 0).map(x => x.product);
 }

@@ -50,9 +50,9 @@ const sale_data = [
 // SEED
 export async function seedDB() {
 
-  const num_records = await prisma.product.count();
+  const numRecords = await prisma.product.count();
 
-  if (num_records > 0) {
+  if (numRecords > 0) {
     return "DB already seeded!"
   }
 

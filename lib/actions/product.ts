@@ -17,7 +17,7 @@ export async function addProduct(
   formData: FormData,
 ) {
   const session = await auth()
-  let new_product_id: number;
+  let newProductId: number;
 
   const validatedData = ProductAddSchema.safeParse({
     name: formData.get("name"),
@@ -70,7 +70,7 @@ export async function addProduct(
       }
     })
 
-    new_product_id = product.id;
+    newProductId = product.id;
   }
   catch {
     return {
@@ -84,8 +84,8 @@ export async function addProduct(
     }
   }
 
-  revalidatePath(`/dp/${new_product_id}`)
-  redirect(`/dp/${new_product_id}`)
+  revalidatePath(`/dp/${newProductId}`)
+  redirect(`/dp/${newProductId}`)
 }
 
 
