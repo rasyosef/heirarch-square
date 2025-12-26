@@ -1,13 +1,13 @@
-import { searchProducts } from "@/lib/data/productData";
 import {
   Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
 } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import { AddToCartButton } from "@/components/CartButtons";
+import { upstashSearchProducts } from "@/lib/upstash-search";
 
 export default async function SearchResultsList({ query }: { query: string }) {
-  const products = await searchProducts(query)
+  const products = await upstashSearchProducts(query)
 
   return (
     <div className="flex flex-col gap-4 pb-4 w-full lg:w-4/5">

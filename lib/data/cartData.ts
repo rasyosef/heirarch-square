@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { prisma } from '@/lib/prisma';
-import { CartItem } from "../definitions";
+import { CartItem } from "@/lib/definitions";
 
 export async function getItemsInCartFromCookie(): Promise<CartItem[]> {
   const cookieStore = await cookies()

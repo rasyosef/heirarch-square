@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { put } from "@vercel/blob";
 import { ProductAddSchema, ProductEditSchema } from "@/lib/actions/schema";
+import { upstashIndex } from "@/lib/upstash-search";
 
 export async function addProduct(
   prevState: {
@@ -61,6 +62,14 @@ export async function addProduct(
       })
     }
 
+    await upstashIndex.upsert({
+      id: String(product.id),
+      content: {
+        name: product.name,
+        description: product.description
+      }
+    })
+
     new_product_id = product.id;
   }
   catch {
@@ -112,7 +121,7 @@ export async function editProduct(
   const { name, description, price } = validatedData.data;
 
   try {
-    await prisma.product.update({
+    const product = await prisma.product.update({
       data: {
         name: name,
         description: description,
@@ -120,6 +129,14 @@ export async function editProduct(
       },
       where: {
         id: product_id
+      }
+    })
+
+    await upstashIndex.upsert({
+      id: String(product.id),
+      content: {
+        name: product.name,
+        description: product.description
       }
     })
   }
@@ -171,6 +188,12 @@ export async function deleteProduct(product_id: number) {
         }
       })
     })
+
+    // delete product from upstash search index
+    await upstashIndex.delete({
+      ids: [String(product_id)]
+    });
+
   } catch {
     return {
       errors: true,
