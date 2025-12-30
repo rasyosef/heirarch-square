@@ -1,5 +1,6 @@
 import { Product } from "@/lib/definitions"
 import { prisma } from '@/lib/prisma';
+import { redis } from "@/lib/redis";
 
 export async function getProducts(): Promise<Product[]> {
   const productsList = await prisma.product.findMany();
@@ -7,11 +8,23 @@ export async function getProducts(): Promise<Product[]> {
 }
 
 export async function getSingleProduct(id: number): Promise<Product> {
+  const cacheKey = `product:${id}`;
+  const cachedData = await redis.get<Product>(cacheKey);
+
+  if (cachedData) {
+    return cachedData
+  }
+
   const product = await prisma.product.findMany({
     where: {
       id: Number(id),
     }
   });
+
+  if (product[0]) {
+    await redis.set(cacheKey, product[0], { ex: 3600 });
+  }
+
   return product[0];
 }
 

@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { put } from "@vercel/blob";
 import { ProductAddSchema, ProductEditSchema } from "@/lib/actions/schema";
 import { upstashIndex } from "@/lib/upstash-search";
+import { redis } from "../redis";
 
 export async function addProduct(
   prevState: {
@@ -139,6 +140,9 @@ export async function editProduct(
         description: product.description
       }
     })
+
+    const cacheKey = `product:${product.id}`;
+    await redis.set(cacheKey, product, { ex: 3600, xx: true });
   }
   catch {
     return {
@@ -193,6 +197,10 @@ export async function deleteProduct(product_id: number) {
     await upstashIndex.delete({
       ids: [String(product_id)]
     });
+
+    // delete from redis cache
+    const cacheKey = `product:${product_id}`;
+    await redis.del(cacheKey);
 
   } catch {
     return {
