@@ -6,6 +6,8 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { put } from "@vercel/blob";
 import { ProductAddSchema, ProductEditSchema } from "@/lib/actions/schema";
+import { upstashIndex } from "@/lib/upstash-search";
+import { redis } from "../redis";
 
 export async function addProduct(
   prevState: {
@@ -16,7 +18,7 @@ export async function addProduct(
   formData: FormData,
 ) {
   const session = await auth()
-  let new_product_id: number;
+  let newProductId: number;
 
   const validatedData = ProductAddSchema.safeParse({
     name: formData.get("name"),
@@ -61,7 +63,15 @@ export async function addProduct(
       })
     }
 
-    new_product_id = product.id;
+    await upstashIndex.upsert({
+      id: String(product.id),
+      content: {
+        name: product.name,
+        description: product.description
+      }
+    })
+
+    newProductId = product.id;
   }
   catch {
     return {
@@ -75,8 +85,8 @@ export async function addProduct(
     }
   }
 
-  revalidatePath(`/dp/${new_product_id}`)
-  redirect(`/dp/${new_product_id}`)
+  revalidatePath(`/dp/${newProductId}`)
+  redirect(`/dp/${newProductId}`)
 }
 
 
@@ -112,7 +122,7 @@ export async function editProduct(
   const { name, description, price } = validatedData.data;
 
   try {
-    await prisma.product.update({
+    const product = await prisma.product.update({
       data: {
         name: name,
         description: description,
@@ -122,6 +132,17 @@ export async function editProduct(
         id: product_id
       }
     })
+
+    await upstashIndex.upsert({
+      id: String(product.id),
+      content: {
+        name: product.name,
+        description: product.description
+      }
+    })
+
+    const cacheKey = `product:${product.id}`;
+    await redis.set(cacheKey, product, { ex: 3600, xx: true });
   }
   catch {
     return {
@@ -171,6 +192,16 @@ export async function deleteProduct(product_id: number) {
         }
       })
     })
+
+    // delete product from upstash search index
+    await upstashIndex.delete({
+      ids: [String(product_id)]
+    });
+
+    // delete from redis cache
+    const cacheKey = `product:${product_id}`;
+    await redis.del(cacheKey);
+
   } catch {
     return {
       errors: true,

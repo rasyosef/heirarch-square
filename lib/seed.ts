@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Product, SaleData } from "@/lib/definitions"
+import { upstashIndex } from "./upstash-search";
 
 const products_list = [
   <Product>{
@@ -49,9 +50,9 @@ const sale_data = [
 // SEED
 export async function seedDB() {
 
-  const num_records = await prisma.product.count();
+  const numRecords = await prisma.product.count();
 
-  if (num_records > 0) {
+  if (numRecords > 0) {
     return "DB already seeded!"
   }
 
@@ -73,6 +74,27 @@ export async function seedDB() {
         num_sold: sale_data[i].num_sold
       }
     })
+
+  return "Seed Successful!";
+}
+
+export async function seedUpstashSearch() {
+  const productCount = (await upstashIndex.info()).documentCount;
+
+  if (productCount > 0) {
+    return "Upstash Index already seeded!"
+  }
+
+  const products = await prisma.product.findMany()
+  for (let i = 0; i < products.length; i++) {
+    await upstashIndex.upsert({
+      id: String(products[i].id),
+      content: {
+        name: products[i].name,
+        description: products[i].description
+      }
+    })
+  }
 
   return "Seed Successful!";
 }
